@@ -19,6 +19,9 @@ describe('Teste da tela de login', () => {
     userEvent.type(inputEmail, 'teste@teste.com');
     userEvent.type(inputPassword, '1234567');
 
+    expect(inputEmail).toHaveValue('teste@teste.com');
+    expect(inputPassword).toHaveValue('1234567');
+
     expect(loginButton).not.toBeDisabled();
 
     userEvent.click(loginButton);
