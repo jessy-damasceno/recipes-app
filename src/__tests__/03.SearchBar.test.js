@@ -7,6 +7,8 @@ import FoodProvider from '../context/FoodProvider';
 import renderWithRouter from '../helpers/renderWithRouter';
 import App from '../App';
 import meals from '../mocks/meals';
+import drinks from '../mocks/drinks';
+import oneMeal from '../mocks/oneMeal';
 import oneDrink from '../mocks/oneDrink';
 
 const SEARCH_INPUT = 'search-input';
@@ -14,6 +16,7 @@ const INGREDIENT_RADIO = 'ingredient-search-radio';
 const NAME_RADIO = 'name-search-radio';
 const FLETTER_RADIO = 'first-letter-search-radio';
 const SEARCH_BUTTON = 'search-top-btn';
+const CLICK_BUTTON_SEARCH = 'exec-search-btn';
 
 describe('Teste do componente SearchBar', () => {
   afterEach(() => jest.clearAllMocks());
@@ -106,9 +109,34 @@ describe('Teste do componente SearchBar', () => {
 
     const searchInput = screen.getByTestId(SEARCH_INPUT);
     const nameSearchRadio = screen.getByTestId(NAME_RADIO);
-    const searchButton = screen.getByTestId(SEARCH_BUTTON);
+    const searchButton = screen.getByTestId(CLICK_BUTTON_SEARCH);
 
     userEvent.type(searchInput, 'banana');
+    userEvent.click(nameSearchRadio);
+    userEvent.click(searchButton);
+
+    expect(global.fetch).toHaveBeenCalled();
+  });
+
+  it('Testando se, ao clicar no botão, o componente funciona drinks', () => {
+    jest.spyOn(global, 'fetch').mockResolvedValue({ json: async () => drinks });
+
+    const { history } = renderWithRouter(
+      <FoodProvider>
+        <DrinkProvider>
+          <App />
+        </DrinkProvider>
+      </FoodProvider>,
+    );
+    history.push('/drinks');
+
+    userEvent.click(screen.getByTestId(SEARCH_BUTTON));
+
+    const searchInput = screen.getByTestId(SEARCH_INPUT);
+    const nameSearchRadio = screen.getByTestId(NAME_RADIO);
+    const searchButton = screen.getByTestId(CLICK_BUTTON_SEARCH);
+
+    userEvent.type(searchInput, 'Ice');
     userEvent.click(nameSearchRadio);
     userEvent.click(searchButton);
 
@@ -131,7 +159,7 @@ describe('Teste do componente SearchBar', () => {
 
     const searchInput = screen.getByTestId(SEARCH_INPUT);
     const nameSearchRadio = screen.getByTestId(NAME_RADIO);
-    const searchButton = screen.getByTestId(SEARCH_BUTTON);
+    const searchButton = screen.getByTestId(CLICK_BUTTON_SEARCH);
 
     userEvent.type(searchInput, 'Aquamarine');
     userEvent.click(nameSearchRadio);
@@ -143,7 +171,7 @@ describe('Teste do componente SearchBar', () => {
   });
 
   it('Testando se, ao clicar no botão, o componente funciona corretamente', () => {
-    jest.spyOn(global, 'fetch').mockResolvedValue({ json: async () => oneDrink });
+    jest.spyOn(global, 'fetch').mockResolvedValue({ json: async () => oneMeal });
 
     const { history } = renderWithRouter(
       <FoodProvider>
@@ -158,14 +186,14 @@ describe('Teste do componente SearchBar', () => {
 
     const searchInput = screen.getByTestId(SEARCH_INPUT);
     const nameSearchRadio = screen.getByTestId(NAME_RADIO);
-    const searchButton = screen.getByTestId(SEARCH_BUTTON);
+    const searchButton = screen.getByTestId(CLICK_BUTTON_SEARCH);
 
-    userEvent.type(searchInput, 'Aquamarine');
+    userEvent.type(searchInput, 'Spicy');
     userEvent.click(nameSearchRadio);
     userEvent.click(searchButton);
 
     expect(global.fetch).toHaveBeenCalled();
 
-    waitFor(() => expect(history.location.pathname).toBe('/drinks/178319'));
+    waitFor(() => expect(history.location.pathname).toBe('/foods/52771'));
   });
 });
