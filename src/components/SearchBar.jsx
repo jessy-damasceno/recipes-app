@@ -29,7 +29,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div>
+    <main>
       <input
         type="text"
         data-testid="search-input"
@@ -78,7 +78,7 @@ const SearchBar = () => {
       >
         Buscar
       </button>
-    </div>
+    </main>
   );
 };
 
