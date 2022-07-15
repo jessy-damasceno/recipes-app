@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import Header from '../components/Header';
 
-const Foods = () => {
-  return (
-    <div>Foods</div>
-  )
-}
+const Foods = () => (
+  <div>
+    <Header title="Foods" search />
+  </div>
+);
 
 export default Foods;

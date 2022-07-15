@@ -10,7 +10,7 @@ form {
   width: 100%;
 }
 
-form input, button {
+form input, form button {
   outline: none;
   padding: 0.5rem;
   width: 100%;
