@@ -1,18 +1,30 @@
 import React, { useState, useContext } from 'react';
-import { foodContext } from '../context/context';
+import { useHistory } from 'react-router-dom';
+import { drinkContext, foodContext } from '../context/context';
+import fetchSearchBarDrinks from '../services/fetchDrinks';
 import fetchSearchBarFoods from '../services/fetchFoods';
 
 const SearchBar = () => {
   const [searchBar, setSearchBar] = useState('');
   const [radioValue, setRadioValue] = useState('ingredient');
   const { setFoods } = useContext(foodContext);
+  const { setDrinks } = useContext(drinkContext);
+  const history = useHistory();
 
   const handleClick = async () => {
     if (radioValue === 'first-letter' && searchBar.length > 1) {
       global.alert('Your search must have only 1 (one) character');
     } else {
-      const foodsList = await fetchSearchBarFoods(radioValue, searchBar);
-      setFoods(foodsList);
+      if (history.location.pathname === '/foods') {
+        const foodsList = await fetchSearchBarFoods(radioValue, searchBar);
+        setFoods(foodsList);
+        if (foodsList.length === 1) history.push(`/foods/${foodsList[0].idMeal}`);
+      }
+      if (history.location.pathname === '/drinks') {
+        const drinksList = await fetchSearchBarDrinks(radioValue, searchBar);
+        setDrinks(drinksList);
+        if (drinksList.length === 1) history.push(`/drinks/${drinksList[0].idDrink}`);
+      }
     }
   };
 

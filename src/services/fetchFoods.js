@@ -1,4 +1,4 @@
-const fetchSearchBarFoods = (item, query) => {
+const fetchSearchBarFoods = async (item, query) => {
   let endpoint = '';
   if (item === 'ingredient') {
     endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${query}`;
