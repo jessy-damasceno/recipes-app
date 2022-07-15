@@ -6,10 +6,6 @@
   width: 100vw;
 }
 
-.login-inputs {
-  width: 100%;
-}
-
 .login-inputs input, .login-inputs button {
   outline: none;
   padding: 0.5rem;

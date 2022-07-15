@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { drinkContext } from '../context/context';
 import '../styles/Foods.css';
@@ -41,6 +42,7 @@ function Drinks() {
           </section>
         )}
       </main>
+      <Footer />
     </div>
   );
 }
