@@ -1,7 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { foodContext } from '../context/context';
+import fetchSearchBarFoods from '../services/fetchFoods';
 
 const SearchBar = () => {
   const [searchBar, setSearchBar] = useState('');
+  const [radioValue, setRadioValue] = useState('ingredient');
+  const { setFoods } = useContext(foodContext);
+
+  const handleClick = async () => {
+    if (radioValue === 'first-letter' && searchBar.length > 1) {
+      global.alert('Your search must have only 1 (one) character');
+    } else {
+      const foodsList = await fetchSearchBarFoods(radioValue, searchBar);
+      setFoods(foodsList);
+    }
+  };
 
   return (
     <div>
@@ -17,7 +30,10 @@ const SearchBar = () => {
           <input
             type="radio"
             id="ingredient"
+            name="queryItem"
+            value="ingredient"
             data-testid="ingredient-search-radio"
+            onChange={ () => setRadioValue('ingredient') }
           />
         </label>
         <label htmlFor="name">
@@ -25,7 +41,10 @@ const SearchBar = () => {
           <input
             type="radio"
             id="name"
+            name="queryItem"
+            value="name"
             data-testid="name-search-radio"
+            onChange={ () => setRadioValue('name') }
           />
         </label>
         <label htmlFor="first-letter">
@@ -33,13 +52,17 @@ const SearchBar = () => {
           <input
             type="radio"
             id="first-letter"
+            name="queryItem"
+            value="first-letter"
             data-testid="first-letter-search-radio"
+            onChange={ () => setRadioValue('first-letter') }
           />
         </label>
       </div>
       <button
         type="button"
         data-testid="exec-search-btn"
+        onClick={ handleClick }
       >
         Buscar
       </button>
