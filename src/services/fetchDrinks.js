@@ -13,11 +13,13 @@ const fetchSearchBarDrinks = async (item, query) => {
   return fetch(endpoint)
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       if (!data.drinks) {
         return global.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
       return data.drinks;
-    });
+    })
+    .catch(() => global.alert('Sorry, we haven\'t found any recipes for these filters.'));
 };
 
 export default fetchSearchBarDrinks;

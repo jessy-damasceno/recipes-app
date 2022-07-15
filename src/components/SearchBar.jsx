@@ -21,6 +21,7 @@ const SearchBar = () => {
         if (foodsList?.length === 1) history.push(`/foods/${foodsList[0].idMeal}`);
       }
       if (history.location.pathname === '/drinks') {
+        console.log('opa');
         const drinksList = await fetchSearchBarDrinks(radioValue, searchBar);
         setDrinks(drinksList);
         if (drinksList?.length === 1) history.push(`/drinks/${drinksList[0].idDrink}`);
