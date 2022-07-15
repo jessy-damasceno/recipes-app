@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 function Header({ title, search = false }) {
-  const [searchBar, setSearchBar] = useState('');
   const [isVisible, setIsVisible] = useState(false);
 
   return (
@@ -27,14 +27,7 @@ function Header({ title, search = false }) {
       </div>
       {search && (
         <div>
-          {isVisible && (
-            <input
-              type="text"
-              data-testid="search-input"
-              value={ searchBar }
-              onChange={ (e) => setSearchBar(e.target.value) }
-            />
-          )}
+          {isVisible && <SearchBar />}
           <button
             type="button"
             onClick={ () => setIsVisible(!isVisible) }
