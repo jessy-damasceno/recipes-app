@@ -11,7 +11,7 @@ function Drinks() {
     <div>
       <Header title="Drinks" search />
       <main>
-        {drinks.length > 1 && (
+        {drinks?.length > 1 && (
           <section className="food-section">
             {drinks.map(({ idDrink, strDrink, strDrinkThumb }, index) => {
               if (index < maxIndex) {

@@ -18,12 +18,12 @@ const SearchBar = () => {
       if (history.location.pathname === '/foods') {
         const foodsList = await fetchSearchBarFoods(radioValue, searchBar);
         setFoods(foodsList);
-        if (foodsList.length === 1) history.push(`/foods/${foodsList[0].idMeal}`);
+        if (foodsList?.length === 1) history.push(`/foods/${foodsList[0].idMeal}`);
       }
       if (history.location.pathname === '/drinks') {
         const drinksList = await fetchSearchBarDrinks(radioValue, searchBar);
         setDrinks(drinksList);
-        if (drinksList.length === 1) history.push(`/drinks/${drinksList[0].idDrink}`);
+        if (drinksList?.length === 1) history.push(`/drinks/${drinksList[0].idDrink}`);
       }
     }
   };

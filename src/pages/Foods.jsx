@@ -5,14 +5,13 @@ import '../styles/Foods.css';
 
 function Foods() {
   const { foods } = useContext(foodContext);
-  console.log(foods);
   const maxIndex = 12;
 
   return (
     <div>
       <Header title="Foods" search />
       <main>
-        {foods.length > 1 && (
+        {foods?.length > 1 && (
           <section className="food-section">
             {foods.map(({ idMeal, strMeal, strMealThumb }, index) => {
               if (index < maxIndex) {

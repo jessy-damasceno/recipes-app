@@ -12,7 +12,12 @@ const fetchSearchBarFoods = async (item, query) => {
 
   return fetch(endpoint)
     .then((response) => response.json())
-    .then((data) => data.meals);
+    .then((data) => {
+      if (!data.meals) {
+        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      }
+      return data.meals;
+    });
 };
 
 export default fetchSearchBarFoods;
