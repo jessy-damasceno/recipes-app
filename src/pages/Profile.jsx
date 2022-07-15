@@ -1,7 +1,10 @@
 import React from 'react';
+import Header from '../components/Header';
 
 const Profile = () => (
-  <div>Profile</div>
+  <main>
+    <Header title="Profile" />
+  </main>
 );
 
 export default Profile;

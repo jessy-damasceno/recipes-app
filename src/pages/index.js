@@ -4,3 +4,7 @@ export { default as Foods } from './Foods';
 export { default as Drinks } from './Drinks';
 export { default as DoneRecipes } from './DoneRecipes';
 export { default as FavoriteRecipes } from './FavoriteRecipes';
+export { default as DrinkRecipe } from './DrinkRecipe';
+export { default as FoodRecipe } from './FoodRecipe';
+export { default as FoodInProgress } from './FoodInProgress';
+export { default as DrinkInProgress } from './DrinkInProgress';
