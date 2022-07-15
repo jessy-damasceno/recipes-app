@@ -1,29 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 function Header({ title, search = false }) {
+  const [searchBar, setSearchBar] = useState('');
+  const [isVisible, setIsVisible] = useState(false);
+
   return (
     <header>
-      <div>
+      <Link to="/profile">
         <img
           src={ profileIcon }
           data-testid="profile-top-btn"
           alt="Profile icon"
         />
-      </div>
-      {search
-      && (
-        <div>
-          <img
-            type="image"
-            data-testid="search-top-btn"
-            src={ searchIcon }
-            alt="Search"
-          />
-        </div>
-      )}
+      </Link>
       <div>
         <h1
           className="title"
@@ -32,6 +25,29 @@ function Header({ title, search = false }) {
           {title}
         </h1>
       </div>
+      {search && (
+        <div>
+          {isVisible && (
+            <input
+              type="text"
+              data-testid="search-input"
+              value={ searchBar }
+              onChange={ (e) => setSearchBar(e.target.value) }
+            />
+          )}
+          <button
+            type="button"
+            onClick={ () => setIsVisible(!isVisible) }
+          >
+            <img
+              type="image"
+              src={ searchIcon }
+              data-testid="search-top-btn"
+              alt="Search"
+            />
+          </button>
+        </div>
+      )}
     </header>
   );
 }
