@@ -18,7 +18,7 @@ export default function Footer() {
       </Link>
 
       <div>
-        <img src={ exploreIcon } alt="Explore" />
+        <img src={ exploreIcon } alt="Explore" className="footer-icon" />
       </div>
 
       <Link to="/foods">
