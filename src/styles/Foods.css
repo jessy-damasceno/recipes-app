@@ -1,0 +1,17 @@
+.food-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card-div {
+  max-width: 100px;
+}
+
+.food-name {
+  font-size: 0.9em;
+}
+
+.food-image {
+  width: 50px;
+}
