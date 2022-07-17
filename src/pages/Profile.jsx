@@ -15,7 +15,7 @@ const Profile = () => {
 
   return (
     <>
-      <Header title="Profile" />
+      <Header title="Profile" search={ false } />
       <h2 data-testid="profile-email">{email}</h2>
       <section className="profile-buttons-container">
         <button
