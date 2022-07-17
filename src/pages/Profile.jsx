@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import { getEmail } from '../services/localStorage';
 
 const Profile = () => {
-  const email = getEmail;
+  const email = getEmail();
   const history = useHistory();
 
   const logout = () => {
