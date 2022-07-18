@@ -1,4 +1,4 @@
-const fetchSearchBarFoods = async (item, query) => {
+export const fetchSearchBarFoods = async (item, query) => {
   let endpoint = '';
   if (item === 'ingredient') {
     endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${query}`;
@@ -20,4 +20,9 @@ const fetchSearchBarFoods = async (item, query) => {
     });
 };
 
-export default fetchSearchBarFoods;
+export const fetchFoods = () => (
+  fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+    .then((response) => response.json())
+    .then((data) => data.meals)
+    .catch((e) => console.log(e))
+);
