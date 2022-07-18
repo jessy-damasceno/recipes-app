@@ -1,4 +1,4 @@
-const fetchSearchBarDrinks = async (item, query) => {
+export const fetchSearchBarDrinks = async (item, query) => {
   let endpoint = '';
   if (item === 'ingredient') {
     endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${query}`;
@@ -21,4 +21,9 @@ const fetchSearchBarDrinks = async (item, query) => {
     .catch(() => global.alert('Sorry, we haven\'t found any recipes for these filters.'));
 };
 
-export default fetchSearchBarDrinks;
+export const fetchDrinks = () => (
+  fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+    .then((response) => response.json())
+    .then((data) => data.drinks)
+    .catch((e) => console.log(e))
+);

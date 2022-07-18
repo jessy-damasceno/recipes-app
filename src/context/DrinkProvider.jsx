@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { drinkContext } from './context';
+import { fetchDrinks } from '../services/fetchDrinks';
 
 function DrinkProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
+
+  useEffect(() => {
+    const fetchAPI = async () => {
+      const response = await fetchDrinks();
+      setDrinks(response);
+    };
+
+    fetchAPI();
+  }, []);
 
   const contextValue = {
     drinks,

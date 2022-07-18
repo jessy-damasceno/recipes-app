@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { drinkContext, foodContext } from '../context/context';
-import fetchSearchBarDrinks from '../services/fetchDrinks';
-import fetchSearchBarFoods from '../services/fetchFoods';
+import { fetchSearchBarDrinks } from '../services/fetchDrinks';
+import { fetchSearchBarFoods } from '../services/fetchFoods';
 
 const SearchBar = () => {
   const [searchBar, setSearchBar] = useState('');
@@ -71,7 +71,6 @@ const SearchBar = () => {
           />
         </label>
       </div>
-
       <button
         type="button"
         data-testid="exec-search-btn"
