@@ -32,7 +32,7 @@ export const fetchFoodCategories = () => (
     .then((response) => response.json())
     .then((data) => {
       const array = ['All'];
-      data.meals.forEach(({ strCategory }, i) => i <= +'5' && array.push(strCategory));
+      data.meals.forEach(({ strCategory }, i) => i < +'5' && array.push(strCategory));
       return array;
     })
     .catch((e) => console.log(e))

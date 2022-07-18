@@ -16,13 +16,12 @@ const FoodCategories = () => {
   }, []);
 
   const handleClick = (arg) => {
-    console.log(typeof arg, arg);
     setFoodsByCategory(arg);
   };
 
   return (
     <div className="filter-buttons-container">
-      {categories.length && categories.map((e) => (
+      {categories.map((e) => (
         <button
           key={ e }
           type="button"
