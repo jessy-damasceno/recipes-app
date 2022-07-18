@@ -9,7 +9,7 @@ const Recipes = ({ cocktails }) => {
 
   return cocktails ? (
     <div className="recipes-container">
-      {drinks?.length > 1 && (
+      {drinks?.length >= 1 && (
         <section className="food-section">
           {drinks.map(({ idDrink, strDrink, strDrinkThumb }, index) => {
             if (index < maxIndex) {
@@ -41,7 +41,7 @@ const Recipes = ({ cocktails }) => {
     </div>
   ) : (
     <div className="recipes-container">
-      {foods?.length > 1 && (
+      {foods?.length >= 1 && (
         <section className="food-section">
           {foods.map(({ idMeal, strMeal, strMealThumb }, index) => {
             if (index < maxIndex) {
