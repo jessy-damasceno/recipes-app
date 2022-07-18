@@ -71,6 +71,7 @@ const SearchBar = () => {
           />
         </label>
       </div>
+
       <button
         type="button"
         data-testid="exec-search-btn"

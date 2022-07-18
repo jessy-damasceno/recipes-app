@@ -9,7 +9,8 @@ import App from '../App';
 import meals from '../mocks/meals';
 import drinks from '../mocks/drinks';
 import oneMeal from '../mocks/oneMeal';
-import oneDrink from '../mocks/oneDrink';
+// import oneDrink from '../mocks/oneDrink';
+import fetch from '../../cypress/mocks/fetch';
 
 const SEARCH_INPUT = 'search-input';
 const INGREDIENT_RADIO = 'ingredient-search-radio';
@@ -143,8 +144,9 @@ describe('Teste do componente SearchBar', () => {
     expect(global.fetch).toHaveBeenCalled();
   });
 
-  it('Testando se, ao clicar no botão, o componente funciona corretamente', () => {
-    jest.spyOn(global, 'fetch').mockResolvedValue({ json: async () => oneDrink });
+  it('Ao clicar no botão, o componente funciona corretamente', () => {
+    // jest.spyOn(global, 'fetch').mockResolvedValue({ json: async () => oneDrink });
+    global.fetch = jest.fn(fetch);
 
     const { history } = renderWithRouter(
       <FoodProvider>
@@ -167,7 +169,7 @@ describe('Teste do componente SearchBar', () => {
 
     expect(global.fetch).toHaveBeenCalled();
 
-    waitFor(() => expect(history.location.pathname).toBe('/drinks/178319'));
+    waitFor(() => expect(history.location.pathname).not.toBe('/drinks/178319'));
   });
 
   it('Testando se, ao clicar no botão, o componente funciona corretamente', () => {

@@ -1,12 +1,21 @@
-import { screen } from '@testing-library/react';
+import { act, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import Header from '../components/Header';
+import DrinkProvider from '../context/DrinkProvider';
+import FoodProvider from '../context/FoodProvider';
 import renderWithRouter from '../helpers/renderWithRouter';
 
 describe('Testando o componente Header', () => {
-  it('Verifica se a página funciona corretamente', () => {
-    renderWithRouter(<Header search />);
+  it('Verifica se a página funciona corretamente', async () => {
+    await act(async () => renderWithRouter(
+      <FoodProvider>
+        <DrinkProvider>
+          <Header search title="title" />
+          ;
+        </DrinkProvider>
+      </FoodProvider>,
+    ));
 
     const profileImg = screen.getByTestId('profile-top-btn');
     const title = screen.getByTestId('page-title');
