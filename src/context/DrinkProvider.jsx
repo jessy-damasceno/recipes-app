@@ -27,7 +27,7 @@ function DrinkProvider({ children }) {
 
   const setDrinksByCategory = async (category) => {
     if (category === atualDrinkCategory || category === 'All') {
-      setDrinks(foodData);
+      setDrinks(drinksData);
       setAtualDrinkCategory('All');
     } else {
       const response = await fetchDrinkByCategories(category);
