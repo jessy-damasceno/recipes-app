@@ -1,23 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { foodContext } from './context';
-import { fetchFoods } from '../services/fetchFoods';
+import { fetchFoodByCategories, fetchFoods } from '../services/fetchFoods';
 
 function FoodProvider({ children }) {
+  const [foodData, setFoodData] = useState([]);
   const [foods, setFoods] = useState([]);
+  const [atualFoodCategory, setAtualFoodCategory] = useState('All');
 
   useEffect(() => {
     const fetchAPI = async () => {
       const response = await fetchFoods();
-      setFoods(response);
+      setFoodData(response);
     };
 
     fetchAPI();
   }, []);
 
+  useEffect(() => {
+    const fetchAPI = () => {
+      setFoods(foodData);
+    };
+
+    fetchAPI();
+  }, [foodData]);
+
+  const setFoodsByCategory = async (category) => {
+    if (category === atualFoodCategory || category === 'All') {
+      setFoods(foodData);
+      setAtualFoodCategory('All');
+    } else {
+      const response = await fetchFoodByCategories(category);
+      setAtualFoodCategory(category);
+      setFoods(response);
+    }
+  };
+
   const contextValue = {
+    // states
     foods,
+    // funcs
     setFoods,
+    setFoodsByCategory,
   };
 
   return (

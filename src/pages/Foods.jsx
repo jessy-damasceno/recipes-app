@@ -1,4 +1,5 @@
 import React from 'react';
+import FoodCategories from '../components/FoodCategories';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Recipes from '../components/Recipes';
@@ -8,6 +9,7 @@ function Foods() {
   return (
     <div>
       <Header title="Foods" search />
+      <FoodCategories />
       <Recipes />
       <Footer />
     </div>
