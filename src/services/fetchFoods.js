@@ -41,9 +41,6 @@ export const fetchFoodCategories = () => (
 export const fetchFoodByCategories = (category) => (
   fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
     .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      return data.meals;
-    })
+    .then((data) => data.meals)
     .catch((e) => console.log(e))
 );

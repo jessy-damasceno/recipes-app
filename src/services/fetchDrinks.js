@@ -27,3 +27,24 @@ export const fetchDrinks = () => (
     .then((data) => data.drinks)
     .catch((e) => console.log(e))
 );
+
+export const fetchDrinkCategories = () => (
+  fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
+    .then((response) => response.json())
+    .then((data) => {
+      const array = ['All'];
+      data.drinks.forEach(({ strCategory }, i) => i <= +'5' && array.push(strCategory));
+      return array;
+    })
+    .catch((e) => console.log(e))
+);
+
+export const fetchDrinkByCategories = (category) => (
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      return data.drinks;
+    })
+    .catch((e) => console.log(e))
+);
