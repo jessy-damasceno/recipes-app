@@ -6,12 +6,18 @@ import Profile from '../pages/Profile';
 
 describe('Testando a página de Perfil', () => {
   it('Testa se a página está montada corretamente', () => {
+    jest.spyOn(Object.getPrototypeOf(localStorage), 'getItem');
+
     renderWithRouter(<Profile />);
 
     screen.getByTestId('profile-email');
     screen.getByTestId('profile-done-btn');
     screen.getByTestId('profile-favorite-btn');
     screen.getByTestId('profile-logout-btn');
+
+    expect(localStorage.getItem).toHaveBeenCalled();
+
+    localStorage.getItem.mockRestore();
   });
 
   it('Teste do botão Done Recipes', () => {

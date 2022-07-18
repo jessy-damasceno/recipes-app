@@ -2,11 +2,19 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
+import DrinkProvider from '../context/DrinkProvider';
+import FoodProvider from '../context/FoodProvider';
 import renderWithRouter from '../helpers/renderWithRouter';
 
 describe('Teste da tela de login', () => {
   it('Verifica se a página funciona corretamente', () => {
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouter(
+      <FoodProvider>
+        <DrinkProvider>
+          <App />
+        </DrinkProvider>
+      </FoodProvider>,
+    );
 
     const inputEmail = screen.getByTestId('email-input');
     const inputPassword = screen.getByTestId('password-input');

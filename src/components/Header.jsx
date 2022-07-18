@@ -5,7 +5,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-function Header({ title, search = false }) {
+function Header({ title, search }) {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
@@ -46,8 +46,13 @@ function Header({ title, search = false }) {
 }
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired,
-  search: PropTypes.bool.isRequired,
+  title: PropTypes.string,
+  search: PropTypes.bool,
+};
+
+Header.defaultProps = {
+  title: 'No title',
+  search: false,
 };
 
 export default Header;
