@@ -26,3 +26,24 @@ export const fetchFoods = () => (
     .then((data) => data.meals)
     .catch((e) => console.log(e))
 );
+
+export const fetchFoodCategories = () => (
+  fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
+    .then((response) => response.json())
+    .then((data) => {
+      const array = ['All'];
+      data.meals.forEach(({ strCategory }, i) => i <= +'5' && array.push(strCategory));
+      return array;
+    })
+    .catch((e) => console.log(e))
+);
+
+export const fetchFoodByCategories = (category) => (
+  fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      return data.meals;
+    })
+    .catch((e) => console.log(e))
+);
