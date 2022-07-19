@@ -39,6 +39,7 @@ function FoodProvider({ children }) {
   const contextValue = {
     // states
     foods,
+    foodData,
     // funcs
     setFoods,
     setFoodsByCategory,

@@ -44,3 +44,10 @@ export const fetchFoodByCategories = (category) => (
     .then((data) => data.meals)
     .catch((e) => console.log(e))
 );
+
+export const fetchOneFood = (id) => (
+  fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((response) => response.json())
+    .then((data) => data.meals[0])
+    .catch((e) => console.log(e))
+);
