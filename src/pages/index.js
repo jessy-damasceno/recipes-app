@@ -8,3 +8,5 @@ export { default as DrinkRecipe } from './DrinkRecipe';
 export { default as FoodRecipe } from './FoodRecipe';
 export { default as FoodInProgress } from './FoodInProgress';
 export { default as DrinkInProgress } from './DrinkInProgress';
+export { default as RecipeDetails } from './RecipeDetails';
+export { default as RecipeInProgress } from './RecipeInProgress';

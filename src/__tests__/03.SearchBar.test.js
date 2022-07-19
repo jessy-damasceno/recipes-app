@@ -91,7 +91,7 @@ describe('Teste do componente SearchBar', () => {
     userEvent.click(button);
 
     expect(window.alert).toHaveBeenCalledTimes(1);
-    expect(global.fetch).toHaveBeenCalledTimes(0);
+    expect(global.fetch).toHaveBeenCalledTimes(2);
   });
 
   it('Testando se, ao clicar no botão, o componente funciona', () => {
