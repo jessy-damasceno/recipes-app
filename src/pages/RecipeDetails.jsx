@@ -9,7 +9,6 @@ function RecipeDetails({ match: { params: { id } } }) {
   console.log(isFood);
   return (
     <div>
-      RecipeDetails
       {isFood ? <FoodDetails id={ id } /> : <DrinkDetails id={ id } />}
     </div>
   );

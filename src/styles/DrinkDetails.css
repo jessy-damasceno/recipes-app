@@ -1,0 +1,18 @@
+.recipe-details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100vw;
+}
+
+.recipe-details-img {
+  align-items: center;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+
+.recipe-details-img > img {
+  width: 60px;
+}

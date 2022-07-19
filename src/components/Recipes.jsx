@@ -20,7 +20,7 @@ const Recipes = ({ cocktails }) => {
                   data-testid={ `${index}-recipe-card` }
                   className="card-div"
                 >
-                  <Link to={ `drinks/${idDrink}` }>
+                  <Link to={ `/drinks/${idDrink}` }>
                     <p
                       data-testid={ `${index}-card-name` }
                       className="food-name"
@@ -54,7 +54,7 @@ const Recipes = ({ cocktails }) => {
                   data-testid={ `${index}-recipe-card` }
                   className="card-div"
                 >
-                  <Link to={ `foods/${idMeal}` }>
+                  <Link to={ `/foods/${idMeal}` }>
                     <p
                       data-testid={ `${index}-card-name` }
                       className="food-name"

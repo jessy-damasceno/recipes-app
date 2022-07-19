@@ -1,0 +1,19 @@
+.food-recommendations-container {
+  display: flex;
+  gap: 8px;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+}
+
+.food-recommendations-container > a {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  min-width: 50%;
+}
+
+.food-image {
+  width: 100%;
+}

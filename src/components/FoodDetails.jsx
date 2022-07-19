@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { fetchOneFood } from '../services/fetchFoods';
 import DrinkRecommendations from './DrinkRecommendations';
+import '../styles/DrinkDetails.css';
 
 const FoodDetails = ({ id }) => {
   const [food, setFood] = useState([]);
@@ -16,14 +17,14 @@ const FoodDetails = ({ id }) => {
 
   console.log(food);
   const ingredientsList = Object.entries(food).reduce((acc, [key, value]) => {
-    if (key.includes('strIngredient') && value.length) {
+    if (key.includes('strIngredient') && value) {
       return [...acc, value];
     }
     return acc;
   }, []);
 
   const measuresList = Object.entries(food).reduce((acc, [key, value]) => {
-    if (key.includes('strMeasure') && value.length > 1) {
+    if (key.includes('strMeasure') && value) {
       return [...acc, value];
     }
     return acc;

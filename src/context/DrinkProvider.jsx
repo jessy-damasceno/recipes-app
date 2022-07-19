@@ -39,6 +39,7 @@ function DrinkProvider({ children }) {
   const contextValue = {
     // states
     drinks,
+    drinksData,
     // funcs
     setDrinks,
     setDrinksByCategory,
