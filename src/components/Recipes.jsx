@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { drinkContext, foodContext } from '../context/context';
 
 const Recipes = ({ cocktails }) => {
@@ -19,18 +20,20 @@ const Recipes = ({ cocktails }) => {
                   data-testid={ `${index}-recipe-card` }
                   className="card-div"
                 >
-                  <p
-                    data-testid={ `${index}-card-name` }
-                    className="food-name"
-                  >
-                    {strDrink}
-                  </p>
-                  <img
-                    src={ strDrinkThumb }
-                    alt="Dish icon"
-                    data-testid={ `${index}-card-img` }
-                    className="food-image"
-                  />
+                  <Link to={ `drinks/${idDrink}` }>
+                    <p
+                      data-testid={ `${index}-card-name` }
+                      className="food-name"
+                    >
+                      {strDrink}
+                    </p>
+                    <img
+                      src={ strDrinkThumb }
+                      alt="Dish icon"
+                      data-testid={ `${index}-card-img` }
+                      className="food-image"
+                    />
+                  </Link>
                 </div>
               );
             }
@@ -51,18 +54,20 @@ const Recipes = ({ cocktails }) => {
                   data-testid={ `${index}-recipe-card` }
                   className="card-div"
                 >
-                  <p
-                    data-testid={ `${index}-card-name` }
-                    className="food-name"
-                  >
-                    {strMeal}
-                  </p>
-                  <img
-                    src={ strMealThumb }
-                    alt="Dish icon"
-                    data-testid={ `${index}-card-img` }
-                    className="food-image"
-                  />
+                  <Link to={ `foods/${idMeal}` }>
+                    <p
+                      data-testid={ `${index}-card-name` }
+                      className="food-name"
+                    >
+                      {strMeal}
+                    </p>
+                    <img
+                      src={ strMealThumb }
+                      alt="Dish icon"
+                      data-testid={ `${index}-card-img` }
+                      className="food-image"
+                    />
+                  </Link>
                 </div>
               );
             }
