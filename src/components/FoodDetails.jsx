@@ -5,8 +5,13 @@ import clipboardCopy from 'clipboard-copy';
 import { fetchOneFood } from '../services/fetchFoods';
 import DrinkRecommendations from './DrinkRecommendations';
 import '../styles/FoodDetails.css';
-import { getDoneRecipes,
-  getFavoriteRecipes, verifyMealIsInProgress } from '../services/localStorage';
+import {
+  addFavoriteRecipe,
+  getDoneRecipes,
+  getFavoriteRecipes,
+  removeFavoriteRecipe,
+  verifyMealIsInProgress,
+} from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
@@ -69,6 +74,24 @@ const FoodDetails = ({ id }) => {
     }, +'2000');
   };
 
+  const favoriteFunction = () => {
+    if (isFav) {
+      removeFavoriteRecipe(id);
+    } else {
+      const recipe = {
+        id,
+        type: 'food',
+        nationality: food.strArea,
+        category: food.strCategory,
+        alcoholicOrNot: '',
+        name: food.strMeal,
+        image: food.strMealThumb,
+      };
+      addFavoriteRecipe(recipe);
+    }
+    setIsFav(!isFav);
+  };
+
   return (
     <div className="recipe-f-details-container">
       <img
@@ -90,7 +113,7 @@ const FoodDetails = ({ id }) => {
           <button
             data-testid="favorite-btn"
             type="button"
-            onClick={ () => console.log(isFav) }
+            onClick={ favoriteFunction }
           >
             <img src={ isFav ? blackHeart : whiteHeart } alt="favorite icon" />
           </button>
