@@ -112,11 +112,14 @@ const DrinkDetails = ({ id }) => {
             <img src={ shareIcon } alt="share icon" />
           </button>
           <button
-            data-testid="favorite-btn"
             type="button"
             onClick={ favoriteFunction }
           >
-            <img src={ isFav ? blackHeart : whiteHeart } alt="favorite icon" />
+            <img
+              data-testid="favorite-btn"
+              src={ isFav ? blackHeart : whiteHeart }
+              alt="favorite icon"
+            />
           </button>
           {isClicked && <span className="copied_span">Link copied!</span>}
         </div>
