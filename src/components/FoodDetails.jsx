@@ -60,7 +60,7 @@ const FoodDetails = ({ id }) => {
         alt={ food.strMeal }
       />
       <div className="recipe-header">
-        <h2 data-testid="recipe-title">{food.strMeal}</h2>
+        <h3 data-testid="recipe-title">{food.strMeal}</h3>
         <div className="recipe-header-buttons">
           <button
             data-testid="share-btn"
@@ -72,7 +72,7 @@ const FoodDetails = ({ id }) => {
           <button
             data-testid="favorite-btn"
             type="button"
-            onClick={ () => clipboardCopy(window.location.href) }
+            // onClick={ () => clipboardCopy(window.location.href) }
           >
             <img src={ isFav ? blackHeart : whiteHeart } alt="favorite icon" />
           </button>

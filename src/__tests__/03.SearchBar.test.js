@@ -6,9 +6,9 @@ import DrinkProvider from '../context/DrinkProvider';
 import FoodProvider from '../context/FoodProvider';
 import renderWithRouter from '../helpers/renderWithRouter';
 import App from '../App';
-import meals from '../mocks/meals';
-import drinks from '../mocks/drinks';
-import oneMeal from '../mocks/oneMeal';
+// import meals from '../mocks/meals';
+// import drinks from '../mocks/drinks';
+// import oneMeal from '../mocks/oneMeal';
 // import oneDrink from '../mocks/oneDrink';
 import fetch from '../../cypress/mocks/fetch';
 
@@ -20,6 +20,10 @@ const SEARCH_BUTTON = 'search-top-btn';
 const CLICK_BUTTON_SEARCH = 'exec-search-btn';
 
 describe('Teste do componente SearchBar', () => {
+  beforeEach(() => {
+    global.fetch = jest.fn(fetch);
+  });
+
   afterEach(() => jest.clearAllMocks());
 
   it('Teste se os os elementos estão sendo renderizados corretamente', () => {
@@ -70,7 +74,7 @@ describe('Teste do componente SearchBar', () => {
   });
 
   it('Testa se, ao clicar no botão, o componente funciona corretamente', () => {
-    jest.spyOn(global, 'fetch');
+    // jest.spyOn(global, 'fetch');
 
     window.alert = jest.fn();
 
@@ -95,7 +99,7 @@ describe('Teste do componente SearchBar', () => {
   });
 
   it('Testando se, ao clicar no botão, o componente funciona', () => {
-    jest.spyOn(global, 'fetch').mockResolvedValue({ json: async () => meals });
+    // jest.spyOn(global, 'fetch').mockResolvedValue({ json: async () => meals });
 
     const { history } = renderWithRouter(
       <FoodProvider>
@@ -104,6 +108,7 @@ describe('Teste do componente SearchBar', () => {
         </DrinkProvider>
       </FoodProvider>,
     );
+
     history.push('/foods');
 
     userEvent.click(screen.getByTestId(SEARCH_BUTTON));
@@ -120,7 +125,7 @@ describe('Teste do componente SearchBar', () => {
   });
 
   it('Testando se, ao clicar no botão, o componente funciona drinks', () => {
-    jest.spyOn(global, 'fetch').mockResolvedValue({ json: async () => drinks });
+    // jest.spyOn(global, 'fetch').mockResolvedValue({ json: async () => drinks });
 
     const { history } = renderWithRouter(
       <FoodProvider>
@@ -129,6 +134,7 @@ describe('Teste do componente SearchBar', () => {
         </DrinkProvider>
       </FoodProvider>,
     );
+
     history.push('/drinks');
 
     userEvent.click(screen.getByTestId(SEARCH_BUTTON));
@@ -146,7 +152,7 @@ describe('Teste do componente SearchBar', () => {
 
   it('Ao clicar no botão, o componente funciona corretamente', () => {
     // jest.spyOn(global, 'fetch').mockResolvedValue({ json: async () => oneDrink });
-    global.fetch = jest.fn(fetch);
+    // global.fetch = jest.fn(fetch);
 
     const { history } = renderWithRouter(
       <FoodProvider>
@@ -155,6 +161,7 @@ describe('Teste do componente SearchBar', () => {
         </DrinkProvider>
       </FoodProvider>,
     );
+
     history.push('/drinks');
 
     userEvent.click(screen.getByTestId(SEARCH_BUTTON));
@@ -169,11 +176,11 @@ describe('Teste do componente SearchBar', () => {
 
     expect(global.fetch).toHaveBeenCalled();
 
-    waitFor(() => expect(history.location.pathname).not.toBe('/drinks/178319'));
+    waitFor(() => expect(history.location.pathname).toBe('/drinks/178319'));
   });
 
   it('Testando se, ao clicar no botão, o componente funciona corretamente', () => {
-    jest.spyOn(global, 'fetch').mockResolvedValue({ json: async () => oneMeal });
+    // jest.spyOn(global, 'fetch').mockResolvedValue({ json: async () => oneMeal });
 
     const { history } = renderWithRouter(
       <FoodProvider>
@@ -182,6 +189,7 @@ describe('Teste do componente SearchBar', () => {
         </DrinkProvider>
       </FoodProvider>,
     );
+
     history.push('/foods');
 
     userEvent.click(screen.getByTestId(SEARCH_BUTTON));
@@ -190,7 +198,7 @@ describe('Teste do componente SearchBar', () => {
     const nameSearchRadio = screen.getByTestId(NAME_RADIO);
     const searchButton = screen.getByTestId(CLICK_BUTTON_SEARCH);
 
-    userEvent.type(searchInput, 'Spicy');
+    userEvent.type(searchInput, 'Arrabiata');
     userEvent.click(nameSearchRadio);
     userEvent.click(searchButton);
 
