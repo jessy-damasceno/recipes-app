@@ -1,5 +1,6 @@
 export const KEY_USER = 'user';
 export const DONE_RECIPES = 'doneRecipes';
+export const FAVORITE_RECIPES = 'favoriteRecipes';
 export const IN_PROGRESS_RECIPES = 'inProgressRecipes';
 
 export function getEmail() {
@@ -56,4 +57,29 @@ export const addMealInProgress = (key, value) => {
   inProgressRecipes.meals[key] = value;
 
   localStorage.setItem(IN_PROGRESS_RECIPES, JSON.stringify(inProgressRecipes));
+};
+
+export const getFavoriteRecipes = () => {
+  const response = localStorage.getItem(FAVORITE_RECIPES);
+
+  if (response) {
+    return JSON.parse(response);
+  }
+  return [];
+};
+
+export const addFavoriteRecipe = (recipe) => {
+  const favoriteRecipes = getFavoriteRecipes();
+
+  if (favoriteRecipes) {
+    localStorage.setItem(FAVORITE_RECIPES, JSON.stringify([...favoriteRecipes, recipe]));
+  } else {
+    localStorage.setItem(FAVORITE_RECIPES, JSON.stringify([recipe]));
+  }
+};
+
+export const removeFavoriteRecipe = (id) => {
+  const favoriteRecipes = getFavoriteRecipes();
+  localStorage.setItem(FAVORITE_RECIPES, JSON
+    .stringify(favoriteRecipes.filter((e) => e.id !== id)));
 };

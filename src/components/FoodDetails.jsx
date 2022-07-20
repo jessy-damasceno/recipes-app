@@ -5,18 +5,19 @@ import clipboardCopy from 'clipboard-copy';
 import { fetchOneFood } from '../services/fetchFoods';
 import DrinkRecommendations from './DrinkRecommendations';
 import '../styles/FoodDetails.css';
-import { getDoneRecipes } from '../services/localStorage';
+import { getDoneRecipes,
+  getFavoriteRecipes, verifyMealIsInProgress } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 
 const FoodDetails = ({ id }) => {
   const history = useHistory();
-  const isFav = false;
   const isDone = getDoneRecipes().some(({ id: recipeId }) => recipeId === id);
   const [food, setFood] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
   const [isInProgress, setIsInProgress] = useState(false);
+  const [isFav, setIsFav] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
@@ -24,6 +25,14 @@ const FoodDetails = ({ id }) => {
       setFood(response);
     };
     fetch();
+  }, [id]);
+
+  useEffect(() => {
+    const isFavorite = () => {
+      const favoritesList = getFavoriteRecipes();
+      setIsFav(favoritesList.some((e) => e.id === id));
+    };
+    isFavorite();
   }, [id]);
 
   useEffect(() => {
@@ -81,7 +90,7 @@ const FoodDetails = ({ id }) => {
           <button
             data-testid="favorite-btn"
             type="button"
-            // onClick={ () => clipboardCopy(window.location.href) }
+            onClick={ () => console.log(isFav) }
           >
             <img src={ isFav ? blackHeart : whiteHeart } alt="favorite icon" />
           </button>
