@@ -17,14 +17,15 @@ export const fetchSearchBarFoods = async (item, query) => {
         return global.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
       return data.meals;
-    });
+    })
+    .catch((e) => e);
 };
 
 export const fetchFoods = () => (
   fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
     .then((response) => response.json())
     .then((data) => data.meals)
-    .catch((e) => console.log(e))
+    .catch((e) => e)
 );
 
 export const fetchFoodCategories = () => (
@@ -35,19 +36,19 @@ export const fetchFoodCategories = () => (
       data.meals.forEach(({ strCategory }, i) => i < +'5' && array.push(strCategory));
       return array;
     })
-    .catch((e) => console.log(e))
+    .catch((e) => e)
 );
 
 export const fetchFoodByCategories = (category) => (
   fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
     .then((response) => response.json())
     .then((data) => data.meals)
-    .catch((e) => console.log(e))
+    .catch((e) => e)
 );
 
 export const fetchOneFood = (id) => (
   fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
     .then((response) => response.json())
     .then((data) => data.meals[0])
-    .catch((e) => console.log(e))
+    .catch((e) => e)
 );

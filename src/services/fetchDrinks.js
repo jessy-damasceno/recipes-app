@@ -25,7 +25,7 @@ export const fetchDrinks = () => (
   fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
     .then((response) => response.json())
     .then((data) => data.drinks)
-    .catch((e) => console.log(e))
+    .catch((e) => e)
 );
 
 export const fetchDrinkCategories = () => (
@@ -36,19 +36,19 @@ export const fetchDrinkCategories = () => (
       data.drinks.forEach(({ strCategory }, i) => i < +'5' && array.push(strCategory));
       return array;
     })
-    .catch((e) => console.log(e))
+    .catch((e) => e)
 );
 
 export const fetchDrinkByCategories = (category) => (
   fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`)
     .then((response) => response.json())
     .then((data) => data.drinks)
-    .catch((e) => console.log(e))
+    .catch((e) => e)
 );
 
 export const fetchOneDrink = (id) => (
   fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
     .then((response) => response.json())
     .then((data) => data.drinks[0])
-    .catch((e) => console.log(e))
+    .catch((e) => e)
 );
