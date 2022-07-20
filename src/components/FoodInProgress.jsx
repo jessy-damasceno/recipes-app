@@ -1,10 +1,17 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
-const FoodInProgress = () => (
-  <div>FoodInProgress</div>
-);
+const FoodInProgress = ({ id }) => {
+  console.log(id);
+  return (
+    <div>
+      {id}
+    </div>
+  );
+};
 
-// FoodInProgress.propTypes = {};
+FoodInProgress.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default FoodInProgress;
