@@ -6,7 +6,7 @@ import '../styles/FoodRecommendations.css';
 function DrinkRecommendations() {
   const { drinksData } = useContext(drinkContext);
 
-  console.log(drinksData);
+  // console.log(drinksData);
 
   return (
     <div className="food-recommendations-container">

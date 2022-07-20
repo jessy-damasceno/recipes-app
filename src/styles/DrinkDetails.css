@@ -34,3 +34,9 @@
   position: absolute;
   top: 0;
 }
+
+.recipe-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
