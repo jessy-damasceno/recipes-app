@@ -4,13 +4,8 @@ import PropTypes from 'prop-types';
 import clipboardCopy from 'clipboard-copy';
 import { fetchOneFood } from '../services/fetchFoods';
 import DrinkRecommendations from './DrinkRecommendations';
-<<<<<<< HEAD
 import '../styles/FoodDetails.css';
 import { getDoneRecipes } from '../services/localStorage';
-=======
-import '../styles/DrinkDetails.css';
-import { getDoneRecipes, verifyMealIsInProgress } from '../services/localStorage';
->>>>>>> FIX coisas
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
