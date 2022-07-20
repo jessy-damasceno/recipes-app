@@ -1,20 +1,20 @@
-.recipe-details-container {
+.recipe-f-details-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   width: 100vw;
 }
 
-.recipe-details-img {
+.recipe-f-details-img {
   align-items: center;
   background-color: black;
   display: flex;
   justify-content: center;
 }
 
-.recipe-details-img > img {
-  width: 100%;
-}
+/* .recipe-details-img > img {
+  max-width: 50%;
+} */
 
 .start-recipe-btn {
   bottom: 0;
@@ -35,7 +35,7 @@
   top: 0;
 }
 
-.recipe-header {
+.recipe-f-header {
   align-items: center;
   display: flex;
   justify-content: space-between;

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import clipboardCopy from 'clipboard-copy';
 import { fetchOneFood } from '../services/fetchFoods';
 import DrinkRecommendations from './DrinkRecommendations';
-import '../styles/DrinkDetails.css';
+import '../styles/FoodDetails.css';
 import { getDoneRecipes } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
@@ -52,16 +52,16 @@ const FoodDetails = ({ id }) => {
   };
 
   return (
-    <div className="recipe-details-container">
+    <div className="recipe-f-details-container">
       <img
-        className="recipe-details-img"
+        className="recipe-f-details-img"
         data-testid="recipe-photo"
         src={ food.strMealThumb }
         alt={ food.strMeal }
       />
-      <div className="recipe-header">
+      <div className="recipe-f-header">
         <h3 data-testid="recipe-title">{food.strMeal}</h3>
-        <div className="recipe-header-buttons">
+        <div className="recipe-f-header-buttons">
           <button
             data-testid="share-btn"
             type="button"
