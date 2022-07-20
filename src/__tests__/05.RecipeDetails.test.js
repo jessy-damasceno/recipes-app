@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import FoodProvider from '../context/FoodProvider';
@@ -9,6 +9,7 @@ import fetch from '../../cypress/mocks/fetch';
 
 describe('Testando a página RecipeDetails', () => {
   beforeEach(() => {
+    window.document.execCommand = (copy) => (string) => console.log(copy, string);
     global.fetch = jest.fn(fetch);
   });
 
@@ -34,8 +35,13 @@ describe('Testando a página RecipeDetails', () => {
 
     [spicy, shareIcon, favIcon, start].forEach((e) => expect(e).toBeInTheDocument());
 
-    // userEvent.click(shareIcon);
-    // expect(screen.getByText(/link copied!/i)).toBeInTheDocument();
+    userEvent.click(shareIcon);
+    expect(screen.getByText(/link copied!/i)).toBeInTheDocument();
+
+    await waitFor(() => {
+      const copied = screen.queryByText(/link copied!/i);
+      expect(copied).not.toBeInTheDocument();
+    }, { timeout: 2100 });
 
     userEvent.click(start);
     expect(history.location.pathname).toBe('/foods/52771/in-progress');
@@ -59,8 +65,13 @@ describe('Testando a página RecipeDetails', () => {
 
     [aquamarine, shareIcon, favIcon, start].forEach((e) => expect(e).toBeInTheDocument());
 
-    // userEvent.click(shareIcon);
-    // expect(screen.getByText(/link copied!/i)).toBeInTheDocument();
+    userEvent.click(shareIcon);
+    expect(screen.getByText(/link copied!/i)).toBeInTheDocument();
+
+    await waitFor(() => {
+      const copied = screen.queryByText(/link copied!/i);
+      expect(copied).not.toBeInTheDocument();
+    }, { timeout: 2100 });
 
     userEvent.click(start);
     expect(history.location.pathname).toBe('/drinks/178319/in-progress');

@@ -12,9 +12,9 @@
   justify-content: center;
 }
 
-.recipe-details-img > img {
-  width: 100%;
-}
+/* .recipe-details-img > img {
+  max-width: 50%;
+} */
 
 .start-recipe-btn {
   bottom: 0;
