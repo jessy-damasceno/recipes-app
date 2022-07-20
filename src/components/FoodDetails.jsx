@@ -27,11 +27,11 @@ const FoodDetails = ({ id }) => {
   }, [id]);
 
   useEffect(() => {
-    const progress = () => {
+    const checkProgress = () => {
       const response = verifyMealIsInProgress(id);
       setIsInProgress(response);
     };
-    progress();
+    checkProgress();
   });
 
   const ingredientsList = Object.entries(food).reduce((acc, [key, value]) => {
