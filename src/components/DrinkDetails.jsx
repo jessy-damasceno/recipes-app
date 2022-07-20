@@ -85,7 +85,7 @@ const DrinkDetails = ({ id }) => {
         {ingredientsList.map((e, i) => (
           <li
             data-testid={ `${i}-ingredient-name-and-measure` }
-            key={ e }
+            key={ i }
           >
             {`${e} ${measuresList[i] ? `: ${measuresList[i]}` : ''}`}
           </li>

@@ -5,17 +5,18 @@ import clipboardCopy from 'clipboard-copy';
 import { fetchOneFood } from '../services/fetchFoods';
 import DrinkRecommendations from './DrinkRecommendations';
 import '../styles/DrinkDetails.css';
-import { getDoneRecipes } from '../services/localStorage';
+import { getDoneRecipes, verifyMealIsInProgress } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 
 const FoodDetails = ({ id }) => {
-  const isFav = false;
   const history = useHistory();
+  const isFav = false;
   const isDone = getDoneRecipes().some(({ id: recipeId }) => recipeId === id);
   const [food, setFood] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
+  const [isInProgress, setIsInProgress] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
@@ -24,6 +25,14 @@ const FoodDetails = ({ id }) => {
     };
     fetch();
   }, [id]);
+
+  useEffect(() => {
+    const progress = () => {
+      const response = verifyMealIsInProgress(id);
+      setIsInProgress(response);
+    };
+    progress();
+  });
 
   const ingredientsList = Object.entries(food).reduce((acc, [key, value]) => {
     if (key.includes('strIngredient') && value) {
@@ -84,7 +93,7 @@ const FoodDetails = ({ id }) => {
         {ingredientsList.map((e, i) => (
           <li
             data-testid={ `${i}-ingredient-name-and-measure` }
-            key={ e }
+            key={ i }
           >
             {`${e}: ${measuresList[i]}`}
           </li>
@@ -110,7 +119,7 @@ const FoodDetails = ({ id }) => {
           data-testid="start-recipe-btn"
           onClick={ handleClick }
         >
-          Start Recipe
+          {isInProgress ? 'Continue Recipe' : 'Start Recipe'}
         </button>
       )}
     </div>
