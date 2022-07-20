@@ -5,17 +5,24 @@ import clipboardCopy from 'clipboard-copy';
 import { fetchOneFood } from '../services/fetchFoods';
 import DrinkRecommendations from './DrinkRecommendations';
 import '../styles/FoodDetails.css';
-import { getDoneRecipes } from '../services/localStorage';
+import {
+  addFavoriteRecipe,
+  getDoneRecipes,
+  getFavoriteRecipes,
+  removeFavoriteRecipe,
+  verifyMealIsInProgress,
+} from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 
 const FoodDetails = ({ id }) => {
-  const isFav = false;
   const history = useHistory();
   const isDone = getDoneRecipes().some(({ id: recipeId }) => recipeId === id);
   const [food, setFood] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
+  const [isInProgress, setIsInProgress] = useState(false);
+  const [isFav, setIsFav] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
@@ -24,6 +31,22 @@ const FoodDetails = ({ id }) => {
     };
     fetch();
   }, [id]);
+
+  useEffect(() => {
+    const isFavorite = () => {
+      const favoritesList = getFavoriteRecipes();
+      setIsFav(favoritesList.some((e) => e.id === id));
+    };
+    isFavorite();
+  }, [id]);
+
+  useEffect(() => {
+    const checkProgress = () => {
+      const response = verifyMealIsInProgress(id);
+      setIsInProgress(response);
+    };
+    checkProgress();
+  });
 
   const ingredientsList = Object.entries(food).reduce((acc, [key, value]) => {
     if (key.includes('strIngredient') && value) {
@@ -51,6 +74,24 @@ const FoodDetails = ({ id }) => {
     }, +'2000');
   };
 
+  const favoriteFunction = () => {
+    if (isFav) {
+      removeFavoriteRecipe(id);
+    } else {
+      const recipe = {
+        id,
+        type: 'food',
+        nationality: food.strArea,
+        category: food.strCategory,
+        alcoholicOrNot: '',
+        name: food.strMeal,
+        image: food.strMealThumb,
+      };
+      addFavoriteRecipe(recipe);
+    }
+    setIsFav(!isFav);
+  };
+
   return (
     <div className="recipe-f-details-container">
       <img
@@ -70,11 +111,14 @@ const FoodDetails = ({ id }) => {
             <img src={ shareIcon } alt="share icon" />
           </button>
           <button
-            data-testid="favorite-btn"
             type="button"
-            // onClick={ () => clipboardCopy(window.location.href) }
+            onClick={ favoriteFunction }
           >
-            <img src={ isFav ? blackHeart : whiteHeart } alt="favorite icon" />
+            <img
+              data-testid="favorite-btn"
+              src={ isFav ? blackHeart : whiteHeart }
+              alt="favorite icon"
+            />
           </button>
           {isClicked && <span className="copied_span">Link copied!</span>}
         </div>
@@ -84,7 +128,7 @@ const FoodDetails = ({ id }) => {
         {ingredientsList.map((e, i) => (
           <li
             data-testid={ `${i}-ingredient-name-and-measure` }
-            key={ e }
+            key={ i }
           >
             {`${e}: ${measuresList[i]}`}
           </li>
@@ -110,7 +154,7 @@ const FoodDetails = ({ id }) => {
           data-testid="start-recipe-btn"
           onClick={ handleClick }
         >
-          Start Recipe
+          {isInProgress ? 'Continue Recipe' : 'Start Recipe'}
         </button>
       )}
     </div>

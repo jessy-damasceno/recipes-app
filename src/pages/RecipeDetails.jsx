@@ -6,7 +6,7 @@ import DrinkDetails from '../components/DrinkDetails';
 
 function RecipeDetails({ match: { params: { id } } }) {
   const isFood = useHistory().location.pathname.includes('foods');
-  console.log(isFood);
+
   return (
     <div>
       {isFood ? <FoodDetails id={ id } /> : <DrinkDetails id={ id } />}

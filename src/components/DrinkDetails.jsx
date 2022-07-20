@@ -5,17 +5,24 @@ import clipboardCopy from 'clipboard-copy';
 import { fetchOneDrink } from '../services/fetchDrinks';
 import FoodRecommendations from './FoodRecommendations';
 import '../styles/DrinkDetails.css';
-import { getDoneRecipes } from '../services/localStorage';
+import {
+  addFavoriteRecipe,
+  getDoneRecipes,
+  getFavoriteRecipes,
+  removeFavoriteRecipe,
+  verifyMealIsInProgress,
+} from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 
 const DrinkDetails = ({ id }) => {
-  const isFav = false;
   const history = useHistory();
   const isDone = getDoneRecipes().some(({ id: recipeId }) => recipeId === id);
   const [drink, setDrink] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
+  const [isInProgress, setIsInProgress] = useState(false);
+  const [isFav, setIsFav] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
@@ -24,6 +31,22 @@ const DrinkDetails = ({ id }) => {
     };
     fetch();
   }, [id]);
+
+  useEffect(() => {
+    const isFavorite = () => {
+      const favoritesList = getFavoriteRecipes();
+      setIsFav(favoritesList.some((e) => e.id === id));
+    };
+    isFavorite();
+  }, [id]);
+
+  useEffect(() => {
+    const checkProgress = () => {
+      const response = verifyMealIsInProgress(id);
+      setIsInProgress(response);
+    };
+    checkProgress();
+  });
 
   const ingredientsList = Object.entries(drink).reduce((acc, [key, value]) => {
     if (key.includes('strIngredient') && value) {
@@ -51,6 +74,24 @@ const DrinkDetails = ({ id }) => {
     }, +'2000');
   };
 
+  const favoriteFunction = () => {
+    if (isFav) {
+      removeFavoriteRecipe(id);
+    } else {
+      const recipe = {
+        id,
+        type: 'drink',
+        nationality: '',
+        category: drink.strCategory,
+        alcoholicOrNot: drink.strAlcoholic,
+        name: drink.strDrink,
+        image: drink.strDrinkThumb,
+      };
+      addFavoriteRecipe(recipe);
+    }
+    setIsFav(!isFav);
+  };
+
   return (
     <div className="recipe-details-container">
       <div className="recipe-details-img">
@@ -71,11 +112,14 @@ const DrinkDetails = ({ id }) => {
             <img src={ shareIcon } alt="share icon" />
           </button>
           <button
-            data-testid="favorite-btn"
             type="button"
-            // onClick={ () => clipboardCopy(window.location.href) }
+            onClick={ favoriteFunction }
           >
-            <img src={ isFav ? blackHeart : whiteHeart } alt="favorite icon" />
+            <img
+              data-testid="favorite-btn"
+              src={ isFav ? blackHeart : whiteHeart }
+              alt="favorite icon"
+            />
           </button>
           {isClicked && <span className="copied_span">Link copied!</span>}
         </div>
@@ -85,7 +129,7 @@ const DrinkDetails = ({ id }) => {
         {ingredientsList.map((e, i) => (
           <li
             data-testid={ `${i}-ingredient-name-and-measure` }
-            key={ e }
+            key={ i }
           >
             {`${e} ${measuresList[i] ? `: ${measuresList[i]}` : ''}`}
           </li>
@@ -100,7 +144,7 @@ const DrinkDetails = ({ id }) => {
           data-testid="start-recipe-btn"
           onClick={ handleClick }
         >
-          Start Recipe
+          {isInProgress ? 'Continue Recipe' : 'Start Recipe'}
         </button>)}
     </div>
   );
