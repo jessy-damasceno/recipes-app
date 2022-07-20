@@ -6,8 +6,6 @@ import '../styles/FoodRecommendations.css';
 function DrinkRecommendations() {
   const { drinksData } = useContext(drinkContext);
 
-  console.log(drinksData);
-
   return (
     <div className="food-recommendations-container">
       {drinksData.map((drink, i) => i < +'6' && (
