@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
 import { getFavoriteRecipes, removeFavoriteRecipe } from '../services/localStorage';
+import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 import '../styles/FavoriteRecipes.css';
@@ -36,6 +37,7 @@ const FavoriteRecipes = () => {
 
   return (
     <div>
+      <Header title="Favorite Recipes" />
       <div>
         <button
           type="button"
