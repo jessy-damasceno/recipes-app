@@ -1,21 +1,21 @@
 .favorite-recipes-container {
-    display: flex;
-    gap: 8px;
-    overflow-x: scroll;
-    scroll-behavior: smooth;
-  }
-  
-  .favorite-recipes-container > a {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    justify-content: center;
-    min-width: 50%;
-  }
-  
-  .favorite-recipe-image {
-    width: 100%;
-  }
+  display: flex;
+  gap: 8px;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+}
 
-  /* Só Copiei o css de alguma outra pagina para rodar o Cy */
+.favorite-recipes-container>a {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  min-width: 50%;
+}
+
+.favorite-recipe-image {
+  width: 100%;
+}
+
+/* Só Copiei o css de alguma outra pagina para rodar o Cy */
