@@ -87,7 +87,6 @@ const DrinkDetails = ({ id }) => {
         name: drink.strDrink,
         image: drink.strDrinkThumb,
       };
-      localStorage.setItem('type', JSON.stringify({ type: 'drink' }));
       addFavoriteRecipe(recipe);
     }
     setIsFav(!isFav);
