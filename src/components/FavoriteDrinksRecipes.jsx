@@ -14,8 +14,12 @@ const FavoriteDrinksRecipes = () => {
       {favoriteAll.map((
         { alcoholicOrNot, name, image, nationality, category, type }, i,
       ) => {
-        if (favoriteAll.favoriteRecipes.type === 'drink') {
-          <div key={ type }>
+        const isType = { type };
+        console.log(isType);
+        if (isType === 'drink') {
+          <div
+            key={ i }
+          >
             <p
               data-testid={ `${i}-horizontal-top-text` }
             >
@@ -51,14 +55,12 @@ const FavoriteDrinksRecipes = () => {
           </div>;
         }
         return (
-          <div key={ type }>
+          <div key={ i }>
             <p
               data-testid={ `${i}-horizontal-top-text` }
             >
               { nationality }
-              {' '}
-              -
-              {' '}
+              {' - '}
               { category }
             </p>
             <img
