@@ -129,13 +129,13 @@ const FoodInProgress = ({ id }) => {
           <li
             data-testid={ `${i}-ingredient-step` }
             key={ i }
-            className={ isChecked[e] ? 'ingredient-checked' : 'recipe-f-ingredient' }
+            className={ isChecked[i + e] ? 'ingredient-checked' : 'recipe-f-ingredient' }
           >
-            <label htmlFor={ e }>
+            <label htmlFor={ i + e }>
               <input
                 type="checkbox"
-                name={ e }
-                id={ e }
+                name={ i + e }
+                id={ i + e }
                 onChange={ handleChange }
               />
               {`${e}: ${measuresList[i]}`}
