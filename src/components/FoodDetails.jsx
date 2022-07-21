@@ -9,6 +9,7 @@ import {
   addFavoriteRecipe,
   getDoneRecipes,
   getFavoriteRecipes,
+  getRecipesInProgress,
   removeFavoriteRecipe,
 } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
@@ -20,7 +21,7 @@ const FoodDetails = ({ id }) => {
   const isDone = getDoneRecipes().some(({ id: recipeId }) => recipeId === id);
   const [food, setFood] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
-  const [isInProgress] = useState(false);
+  const [isInProgress, setIsInProgress] = useState(false);
   const [isFav, setIsFav] = useState(false);
 
   useEffect(() => {
@@ -29,6 +30,14 @@ const FoodDetails = ({ id }) => {
       setFood(response);
     };
     fetch();
+  }, [id]);
+
+  useEffect(() => {
+    const checkProgress = () => {
+      const recipesInProgress = getRecipesInProgress();
+      if (recipesInProgress.meals[id]) setIsInProgress(true);
+    };
+    checkProgress();
   }, [id]);
 
   useEffect(() => {
