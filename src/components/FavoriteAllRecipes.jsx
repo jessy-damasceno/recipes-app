@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import PropTypes from 'prop-types'; /
 import { Link } from 'react-router-dom';
+import clipboardCopy from 'clipboard-copy';
 import { getFavoriteRecipes } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
@@ -9,6 +10,16 @@ import '../styles/FavoriteRecipes.css';
 
 const FavoriteDrinksRecipes = () => {
   const favoriteAll = getFavoriteRecipes();
+  const [isClicked, setIsClicked] = useState(false);
+
+  const shareFunction = (type, id) => {
+    setIsClicked(true);
+    clipboardCopy(`${window.location.origin}/${type}s/${id}`);
+    setTimeout(() => {
+      setIsClicked(false);
+    }, +'2000');
+  };
+
   return (
     <div>
       <div>
@@ -61,7 +72,7 @@ const FavoriteDrinksRecipes = () => {
               </Link>
               <button
                 type="button"
-                // onClick={}
+                onClick={ shareFunction }
               >
                 <img
                   src={ shareIcon }
@@ -79,6 +90,7 @@ const FavoriteDrinksRecipes = () => {
                   alt="favorite icon"
                 />
               </button>
+              {isClicked && <span className="copied_span">Link copied!</span>}
             </div>
           );
         }
@@ -109,7 +121,7 @@ const FavoriteDrinksRecipes = () => {
             </Link>
             <button
               type="button"
-              // onClick={}
+              onClick={ () => shareFunction(type, id) }
             >
               <img
                 src={ shareIcon }
@@ -127,6 +139,7 @@ const FavoriteDrinksRecipes = () => {
                 alt="favorite icon"
               />
             </button>
+            {isClicked && <span className="copied_span">Link copied!</span>}
           </div>
         );
       })}
