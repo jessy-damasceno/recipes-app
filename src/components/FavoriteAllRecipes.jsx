@@ -7,10 +7,28 @@ import blackHeart from '../images/blackHeartIcon.svg';
 
 const FavoriteDrinksRecipes = () => {
   const favoriteAll = getFavoriteRecipes();
-
   return (
     <div>
-      <h1>Drinks</h1>
+      <div>
+        <button
+          type="button"
+          data-testid="filter-by-all-btn"
+        >
+          All
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-food-btn"
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+        >
+          Drinks
+        </button>
+      </div>
       {favoriteAll.map((
         { alcoholicOrNot, name, image, nationality, category, type }, i,
       ) => {
