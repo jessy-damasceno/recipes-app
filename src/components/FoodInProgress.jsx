@@ -18,6 +18,7 @@ const FoodInProgress = ({ id }) => {
   const [food, setFood] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
   const [isFav, setIsFav] = useState(false);
+  const [isChecked, setIsChecked] = useState({});
 
   useEffect(() => {
     const fetch = async () => {
@@ -79,6 +80,13 @@ const FoodInProgress = ({ id }) => {
     setIsFav(!isFav);
   };
 
+  const handleChange = ({ target: { name, checked } }) => {
+    setIsChecked({
+      ...isChecked,
+      [name]: checked,
+    });
+  };
+
   return (
     <div className="recipe-f-details-container">
       <img
@@ -113,12 +121,17 @@ const FoodInProgress = ({ id }) => {
       <h3 data-testid="recipe-category">{food.strCategory}</h3>
       <ul>
         {ingredientsList.map((e, i) => (
-          <li data-testid={ `${i}-ingredient-step` } key={ i }>
+          <li
+            data-testid={ `${i}-ingredient-step` }
+            key={ i }
+            className={ isChecked[e] ? 'ingredient-checked' : 'recipe-f-ingredient' }
+          >
             <label htmlFor={ e }>
               <input
                 type="checkbox"
                 name={ e }
                 id={ e }
+                onChange={ handleChange }
               />
               {`${e}: ${measuresList[i]}`}
             </label>

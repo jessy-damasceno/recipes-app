@@ -18,6 +18,7 @@ const DrinkInProgress = ({ id }) => {
   const [drink, setDrink] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
   const [isFav, setIsFav] = useState(false);
+  const [isChecked, setIsChecked] = useState({});
 
   useEffect(() => {
     const fetch = async () => {
@@ -51,6 +52,13 @@ const DrinkInProgress = ({ id }) => {
 
   const handleClick = () => {
     history.push('/done-recipes');
+  };
+
+  const handleChange = ({ target: { name, checked } }) => {
+    setIsChecked({
+      ...isChecked,
+      [name]: checked,
+    });
   };
 
   const shareFunction = () => {
@@ -114,12 +122,17 @@ const DrinkInProgress = ({ id }) => {
       <h3 data-testid="recipe-category">{drink.strAlcoholic}</h3>
       <ul>
         {ingredientsList.map((e, i) => (
-          <li data-testid={ `${i}-ingredient-step` } key={ i }>
+          <li
+            data-testid={ `${i}-ingredient-step` }
+            key={ i }
+            className={ isChecked[e] ? 'ingredient-checked' : 'recipe-ingredient' }
+          >
             <label htmlFor={ e }>
               <input
                 type="checkbox"
                 name={ e }
                 id={ e }
+                onChange={ handleChange }
               />
               {`${e}: ${measuresList[i]}`}
             </label>
