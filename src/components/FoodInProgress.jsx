@@ -81,11 +81,13 @@ const FoodInProgress = ({ id }) => {
   };
 
   const handleChange = ({ target: { name, checked } }) => {
-    setIsChecked({
-      ...isChecked,
+    setIsChecked((oldState) => ({
+      ...oldState,
       [name]: checked,
-    });
+    }));
   };
+
+  console.log(isChecked);
 
   return (
     <div className="recipe-f-details-container">
