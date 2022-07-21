@@ -43,18 +43,18 @@ export const getRecipesInProgress = () => {
   };
 };
 
-export const verifyMealIsInProgress = (id) => {
-  const inProgressRecipes = getRecipesInProgress();
+export const getRecipeInProgressByTypeAndId = (type, id) => {
+  const recipesInProgress = localStorage.getItem(IN_PROGRESS_RECIPES);
 
-  if (Object.keys(inProgressRecipes.meals).length > 1) {
-    return Object.keys(JSON.parse(inProgressRecipes.meals)).includes(id);
+  if (recipesInProgress) {
+    return JSON.parse(recipesInProgress)[type][id];
   }
-  return false;
+  return [];
 };
 
-export const addMealInProgress = (key, value) => {
+export const addRecipeInProgress = (type, id, value) => {
   const inProgressRecipes = getRecipesInProgress();
-  inProgressRecipes.meals[key] = value;
+  inProgressRecipes[type][id] = value;
 
   localStorage.setItem(IN_PROGRESS_RECIPES, JSON.stringify(inProgressRecipes));
 };

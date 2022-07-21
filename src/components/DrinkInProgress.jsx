@@ -6,7 +6,9 @@ import { fetchOneDrink } from '../services/fetchDrinks';
 import '../styles/FoodDetails.css';
 import {
   addFavoriteRecipe,
+  addRecipeInProgress,
   getFavoriteRecipes,
+  getRecipeInProgressByTypeAndId,
   removeFavoriteRecipe,
 } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
@@ -26,15 +28,24 @@ const DrinkInProgress = ({ id }) => {
       const response = await fetchOneDrink(id);
       setDrink(response);
     };
-    fetch();
-  }, [id]);
 
-  useEffect(() => {
     const isFavorite = () => {
       const favoritesList = getFavoriteRecipes();
       setIsFav(favoritesList.some((e) => e.id === id));
     };
+
+    const initialCheck = () => {
+      const response = getRecipeInProgressByTypeAndId('cocktails', id) || [];
+      response.forEach((e) => setIsChecked((oldState) => ({ ...oldState, [e]: true })));
+    };
+
+    fetch();
     isFavorite();
+    initialCheck();
+
+    return () => {
+      setIsChecked({});
+    };
   }, [id]);
 
   const ingredientsList = Object.entries(drink).reduce((acc, [key, value]) => {
@@ -58,6 +69,8 @@ const DrinkInProgress = ({ id }) => {
   const handleChange = ({ target: { name, checked } }) => {
     const newIsChecked = { ...isChecked, [name]: checked };
     const keyValues = Object.values(newIsChecked);
+    addRecipeInProgress('cocktails', id, Object.entries(newIsChecked)
+      .filter((entry) => entry[1] === true).map(([key]) => key));
     setIsChecked(newIsChecked);
     setIsDisabled(keyValues.every((e) => e === true)
       && (keyValues.length === ingredientsList.length));
@@ -127,14 +140,15 @@ const DrinkInProgress = ({ id }) => {
           <li
             data-testid={ `${i}-ingredient-step` }
             key={ i }
-            className={ isChecked[e] ? 'ingredient-checked' : 'recipe-ingredient' }
+            className={ isChecked[i + e] ? 'ingredient-checked' : 'recipe-ingredient' }
           >
-            <label htmlFor={ e }>
+            <label htmlFor={ i + e }>
               <input
                 type="checkbox"
-                name={ e }
-                id={ e }
+                name={ i + e }
+                id={ i + e }
                 onChange={ handleChange }
+                checked={ isChecked[i + e] ?? false }
               />
               {`${e}: ${measuresList[i]}`}
             </label>

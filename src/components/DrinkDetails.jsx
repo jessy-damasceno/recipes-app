@@ -10,7 +10,6 @@ import {
   getDoneRecipes,
   getFavoriteRecipes,
   removeFavoriteRecipe,
-  verifyMealIsInProgress,
 } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
@@ -21,7 +20,7 @@ const DrinkDetails = ({ id }) => {
   const isDone = getDoneRecipes().some(({ id: recipeId }) => recipeId === id);
   const [drink, setDrink] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
-  const [isInProgress, setIsInProgress] = useState(false);
+  const [isInProgress] = useState(false);
   const [isFav, setIsFav] = useState(false);
 
   useEffect(() => {
@@ -39,14 +38,6 @@ const DrinkDetails = ({ id }) => {
     };
     isFavorite();
   }, [id]);
-
-  useEffect(() => {
-    const checkProgress = () => {
-      const response = verifyMealIsInProgress(id);
-      setIsInProgress(response);
-    };
-    checkProgress();
-  });
 
   const ingredientsList = Object.entries(drink).reduce((acc, [key, value]) => {
     if (key.includes('strIngredient') && value) {

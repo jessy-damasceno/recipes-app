@@ -6,7 +6,9 @@ import { fetchOneFood } from '../services/fetchFoods';
 import '../styles/FoodDetails.css';
 import {
   addFavoriteRecipe,
+  addRecipeInProgress,
   getFavoriteRecipes,
+  getRecipeInProgressByTypeAndId,
   removeFavoriteRecipe,
 } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
@@ -26,15 +28,24 @@ const FoodInProgress = ({ id }) => {
       const response = await fetchOneFood(id);
       setFood(response);
     };
-    fetch();
-  }, [id]);
 
-  useEffect(() => {
     const isFavorite = () => {
       const favoritesList = getFavoriteRecipes();
       setIsFav(favoritesList.some((e) => e.id === id));
     };
+
+    const initialCheck = () => {
+      const response = getRecipeInProgressByTypeAndId('meals', id) || [];
+      response.forEach((e) => setIsChecked((oldState) => ({ ...oldState, [e]: true })));
+    };
+
+    fetch();
     isFavorite();
+    initialCheck();
+
+    return () => {
+      setIsChecked({});
+    };
   }, [id]);
 
   const ingredientsList = Object.entries(food).reduce((acc, [key, value]) => {
@@ -84,13 +95,12 @@ const FoodInProgress = ({ id }) => {
   const handleChange = ({ target: { name, checked } }) => {
     const newIsChecked = { ...isChecked, [name]: checked };
     const keyValues = Object.values(newIsChecked);
+    addRecipeInProgress('meals', id, Object.entries(newIsChecked)
+      .filter((entry) => entry[1] === true).map(([key]) => key));
     setIsChecked(newIsChecked);
     setIsDisabled(keyValues.every((e) => e === true)
       && (keyValues.length === ingredientsList.length));
   };
-
-  console.log(isChecked);
-  console.log(isDisabled);
 
   return (
     <div className="recipe-f-details-container">
@@ -137,6 +147,7 @@ const FoodInProgress = ({ id }) => {
                 name={ i + e }
                 id={ i + e }
                 onChange={ handleChange }
+                checked={ isChecked[i + e] ?? false }
               />
               {`${e}: ${measuresList[i]}`}
             </label>
