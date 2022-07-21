@@ -73,7 +73,7 @@ const FoodInProgress = ({ id }) => {
       name: food.strMeal,
       image: food.strMealThumb,
       doneDate: date.toLocaleDateString(),
-      tags: food.strTags.split(','),
+      tags: (food.strTags && food.strTags.split(',')) || [],
     };
     addDoneRecipe(recipe);
     history.push('/done-recipes');
