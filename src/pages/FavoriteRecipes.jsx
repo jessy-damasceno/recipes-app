@@ -1,7 +1,7 @@
 import React from 'react';
 import FavoriteAllRecipes from '../components/FavoriteAllRecipes copy';
-import FavoriteDrinksRecipes from '../components/FavoriteDrinksRecipes';
-import FavoriteFoodRecipes from '../components/FavoriteFoodRecipes copy';
+// import FavoriteDrinksRecipes from '../components/FavoriteDrinksRecipes';
+// import FavoriteFoodRecipes from '../components/FavoriteFoodRecipes copy';
 import Header from '../components/Header';
 
 const FavoriteRecipes = () => (
@@ -28,8 +28,6 @@ const FavoriteRecipes = () => (
       </button>
     </div>
     <FavoriteAllRecipes />
-    <FavoriteDrinksRecipes />
-    <FavoriteFoodRecipes />
   </main>
 );
 

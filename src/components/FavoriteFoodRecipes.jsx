@@ -1,24 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { getFavoriteRecipes } from '../services/localStorage';
-import { fetchOneDrink } from '../services/fetchDrinks';
 import shareIcon from '../images/shareIcon.svg';
-// import whiteHeart from '../images/whiteHeartIcon.svg';
+import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 
-const FavoriteDrinksRecipes = () => {
+const FavoriteFoodRecipes = () => {
   const favoriteAll = getFavoriteRecipes();
 
   return (
     <div>
-      <h1>Drinks</h1>
-      {favoriteAll.map(({ alcoholicOrNot, name, image }, i) => (
-        // if (isDrink) {
+      <h1>Foods</h1>
+      {favoriteAll.map(({ category, name, image, nationality }, i) => (
         <div key={ i }>
           <p
             data-testid={ `${i}-horizontal-top-text` }
           >
-            { alcoholicOrNot }
+            { nationality }
+            {' '}
+            -
+            {' '}
+            { category }
           </p>
           <img
             src={ image }
@@ -43,20 +45,18 @@ const FavoriteDrinksRecipes = () => {
             onClick={ favoriteFunction }
           >
             <img
-              src={ blackHeart }
+              src={ isFav ? blackHeart : whiteHeart }
               alt="favorite icon"
             />
           </button>
         </div>
-        // }
-        // return '';
       ))}
     </div>
   );
 };
 
-FavoriteDrinksRecipes.propTypes = {
+FavoriteFoodRecipes.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-export default FavoriteDrinksRecipes;
+export default FavoriteFoodRecipes;
