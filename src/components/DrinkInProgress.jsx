@@ -5,6 +5,7 @@ import clipboardCopy from 'clipboard-copy';
 import { fetchOneDrink } from '../services/fetchDrinks';
 import '../styles/FoodDetails.css';
 import {
+  addDoneRecipe,
   addFavoriteRecipe,
   addRecipeInProgress,
   getFavoriteRecipes,
@@ -21,7 +22,6 @@ const DrinkInProgress = ({ id }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [isFav, setIsFav] = useState(false);
   const [isChecked, setIsChecked] = useState({});
-  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
@@ -63,17 +63,27 @@ const DrinkInProgress = ({ id }) => {
   }, []);
 
   const handleClick = () => {
+    const date = new Date();
+    const recipe = {
+      id,
+      type: 'drink',
+      nationality: '',
+      category: drink.strCategory,
+      alcoholicOrNot: drink.strAlcoholic,
+      name: drink.strDrink,
+      image: drink.strDrinkThumb,
+      doneDate: date.toLocaleDateString(),
+      tags: [],
+    };
+    addDoneRecipe(recipe);
     history.push('/done-recipes');
   };
 
   const handleChange = ({ target: { name, checked } }) => {
     const newIsChecked = { ...isChecked, [name]: checked };
-    const keyValues = Object.values(newIsChecked);
     addRecipeInProgress('cocktails', id, Object.entries(newIsChecked)
       .filter((entry) => entry[1] === true).map(([key]) => key));
     setIsChecked(newIsChecked);
-    setIsDisabled(keyValues.every((e) => e === true)
-      && (keyValues.length === ingredientsList.length));
   };
 
   const shareFunction = () => {
@@ -82,6 +92,12 @@ const DrinkInProgress = ({ id }) => {
     setTimeout(() => {
       setIsClicked(false);
     }, +'2000');
+  };
+
+  const verifyCheck = () => {
+    const keyValues = Object.values(isChecked);
+    return keyValues.every((e) => e === true)
+      && (keyValues.length === ingredientsList.length);
   };
 
   const favoriteFunction = () => {
@@ -159,7 +175,7 @@ const DrinkInProgress = ({ id }) => {
       <button
         className="start-recipe-btn"
         type="button"
-        disabled={ !isDisabled }
+        disabled={ !verifyCheck() }
         data-testid="finish-recipe-btn"
         onClick={ handleClick }
       >

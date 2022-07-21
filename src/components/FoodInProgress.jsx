@@ -5,6 +5,7 @@ import clipboardCopy from 'clipboard-copy';
 import { fetchOneFood } from '../services/fetchFoods';
 import '../styles/FoodDetails.css';
 import {
+  addDoneRecipe,
   addFavoriteRecipe,
   addRecipeInProgress,
   getFavoriteRecipes,
@@ -21,7 +22,6 @@ const FoodInProgress = ({ id }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [isFav, setIsFav] = useState(false);
   const [isChecked, setIsChecked] = useState({});
-  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
@@ -63,6 +63,19 @@ const FoodInProgress = ({ id }) => {
   }, []);
 
   const handleClick = () => {
+    const date = new Date();
+    const recipe = {
+      id,
+      type: 'food',
+      nationality: food.strArea,
+      category: food.strCategory,
+      alcoholicOrNot: '',
+      name: food.strMeal,
+      image: food.strMealThumb,
+      doneDate: date.toLocaleDateString(),
+      tags: (food.strTags && food.strTags.split(',')) || [],
+    };
+    addDoneRecipe(recipe);
     history.push('/done-recipes');
   };
 
@@ -92,14 +105,17 @@ const FoodInProgress = ({ id }) => {
     setIsFav(!isFav);
   };
 
+  const verifyCheck = () => {
+    const keyValues = Object.values(isChecked);
+    return keyValues.every((e) => e === true)
+      && (keyValues.length === ingredientsList.length);
+  };
+
   const handleChange = ({ target: { name, checked } }) => {
     const newIsChecked = { ...isChecked, [name]: checked };
-    const keyValues = Object.values(newIsChecked);
     addRecipeInProgress('meals', id, Object.entries(newIsChecked)
       .filter((entry) => entry[1] === true).map(([key]) => key));
     setIsChecked(newIsChecked);
-    setIsDisabled(keyValues.every((e) => e === true)
-      && (keyValues.length === ingredientsList.length));
   };
 
   return (
@@ -158,7 +174,7 @@ const FoodInProgress = ({ id }) => {
       <button
         className="start-recipe-btn"
         type="button"
-        disabled={ !isDisabled }
+        disabled={ !verifyCheck() }
         data-testid="finish-recipe-btn"
         onClick={ handleClick }
       >
