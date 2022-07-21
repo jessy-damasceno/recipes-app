@@ -5,7 +5,7 @@
   scroll-behavior: smooth;
 }
 
-.favorite-recipes-container>a {
+.favorite-recipes-container > a {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -17,5 +17,3 @@
 .favorite-recipe-image {
   width: 100%;
 }
-
-/* Só Copiei o css de alguma outra pagina para rodar o Cy */
