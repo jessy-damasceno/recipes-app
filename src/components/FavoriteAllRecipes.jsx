@@ -35,7 +35,6 @@ const FavoriteDrinksRecipes = () => {
         console.log(type);
         if (type === 'drink') {
           return (
-
             <div
               key={ i }
             >
