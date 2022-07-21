@@ -1,9 +1,9 @@
 import React from 'react';
-import { getFavoriteRecipes } from '../services/localStorage';
+import PropTypes from 'prop-types';
+import { getFavoriteRecipes, removeFavoriteRecipe } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 // import whiteHeart from '../images/whiteHeartIcon.svg';
-// import PropTypes from 'prop-types';
 
 const FavoriteDrinksRecipes = () => {
   const favoriteAll = getFavoriteRecipes();
@@ -14,45 +14,50 @@ const FavoriteDrinksRecipes = () => {
       {favoriteAll.map((
         { alcoholicOrNot, name, image, nationality, category, type }, i,
       ) => {
-        const isType = { type };
-        console.log(isType);
-        if (isType === 'drink') {
-          <div
-            key={ i }
-          >
-            <p
-              data-testid={ `${i}-horizontal-top-text` }
+        console.log(type);
+        if (type === 'drink') {
+          return (
+
+            <div
+              key={ i }
             >
-              { alcoholicOrNot }
-            </p>
-            <img
-              src={ image }
-              data-testid={ `${i}-horizontal-image` }
-              alt=""
-            />
-            <h1
-              data-testid={ `${i}-horizontal-name` }
-            >
-              {name}
-            </h1>
-            <button
-              data-testid={ `${i}-horizontal-share-btn` }
-              type="button"
-            // onClick={ shareFunction }
-            >
-              <img src={ shareIcon } alt="share icon" />
-            </button>
-            <button
-              type="button"
-              data-testid={ `${i}-horizontal-favorite-btn` }
-              // onClick={ favoriteFunction }
-            >
+              <p
+                data-testid={ `${i}-horizontal-top-text` }
+              >
+                { alcoholicOrNot }
+              </p>
               <img
-                src={ blackHeart }
-                alt="favorite icon"
+                src={ image }
+                data-testid={ `${i}-horizontal-image` }
+                alt=""
               />
-            </button>
-          </div>;
+              <h1
+                data-testid={ `${i}-horizontal-name` }
+              >
+                { name }
+              </h1>
+              <button
+                type="button"
+                // onClick={}
+              >
+                <img
+                  src={ shareIcon }
+                  alt="share icon"
+                  data-testid={ `${i}-horizontal-share-btn` }
+                />
+              </button>
+              <button
+                type="button"
+                // onClick={ removeFavoriteFunction }
+              >
+                <img
+                  src={ blackHeart }
+                  data-testid={ `${i}-horizontal-favorite-btn` }
+                  alt="favorite icon"
+                />
+              </button>
+            </div>
+          );
         }
         return (
           <div key={ i }>
@@ -74,19 +79,22 @@ const FavoriteDrinksRecipes = () => {
               {name}
             </h1>
             <button
-              data-testid={ `${i}-horizontal-share-btn` }
               type="button"
-              // onClick={ shareFunction }
+              // onClick={}
             >
-              <img src={ shareIcon } alt="share icon" />
+              <img
+                src={ shareIcon }
+                alt="share icon"
+                data-testid={ `${i}-horizontal-share-btn` }
+              />
             </button>
             <button
               type="button"
-              data-testid={ `${i}-horizontal-favorite-btn` }
-              // onClick={ favoriteFunction }
+              // onClick={}
             >
               <img
                 src={ blackHeart }
+                data-testid={ `${i}-horizontal-favorite-btn` }
                 alt="favorite icon"
               />
             </button>
@@ -97,6 +105,8 @@ const FavoriteDrinksRecipes = () => {
   );
 };
 
-// FavoriteDrinksRecipes.propTypes = {};
+// FavoriteDrinksRecipes.propTypes = {
+//   // id: PropTypes.string.isRequired,
+// };
 
 export default FavoriteDrinksRecipes;
