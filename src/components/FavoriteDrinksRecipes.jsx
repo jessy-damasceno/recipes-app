@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { getFavoriteRecipes, removeFavoriteRecipe } from '../services/localStorage';
+// import PropTypes from 'prop-types'; /
+import { getFavoriteRecipes } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 // import whiteHeart from '../images/whiteHeartIcon.svg';
