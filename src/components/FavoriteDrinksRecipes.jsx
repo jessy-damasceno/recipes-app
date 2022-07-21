@@ -14,7 +14,7 @@ const FavoriteDrinksRecipes = () => {
       {favoriteAll.map((
         { alcoholicOrNot, name, image, nationality, category, type }, i,
       ) => {
-        if (favoriteAll.type === 'drink') {
+        if (favoriteAll.favoriteRecipes.type === 'drink') {
           <div key={ type }>
             <p
               data-testid={ `${i}-horizontal-top-text` }
@@ -49,48 +49,47 @@ const FavoriteDrinksRecipes = () => {
               />
             </button>
           </div>;
-        } else {
-          return (
-            <div key={ type }>
-              <p
-                data-testid={ `${i}-horizontal-top-text` }
-              >
-                { nationality }
-                {' '}
-                -
-                {' '}
-                { category }
-              </p>
-              <img
-                src={ image }
-                data-testid={ `${i}-horizontal-image` }
-                alt=""
-              />
-              <h1
-                data-testid={ `${i}-horizontal-name` }
-              >
-                {name}
-              </h1>
-              <button
-                data-testid={ `${i}-horizontal-share-btn` }
-                type="button"
-                // onClick={ shareFunction }
-              >
-                <img src={ shareIcon } alt="share icon" />
-              </button>
-              <button
-                type="button"
-                data-testid={ `${i}-horizontal-favorite-btn` }
-              // onClick={ favoriteFunction }
-              >
-                <img
-                  src={ blackHeart }
-                  alt="favorite icon"
-                />
-              </button>
-            </div>
-          );
         }
+        return (
+          <div key={ type }>
+            <p
+              data-testid={ `${i}-horizontal-top-text` }
+            >
+              { nationality }
+              {' '}
+              -
+              {' '}
+              { category }
+            </p>
+            <img
+              src={ image }
+              data-testid={ `${i}-horizontal-image` }
+              alt=""
+            />
+            <h1
+              data-testid={ `${i}-horizontal-name` }
+            >
+              {name}
+            </h1>
+            <button
+              data-testid={ `${i}-horizontal-share-btn` }
+              type="button"
+              // onClick={ shareFunction }
+            >
+              <img src={ shareIcon } alt="share icon" />
+            </button>
+            <button
+              type="button"
+              data-testid={ `${i}-horizontal-favorite-btn` }
+              // onClick={ favoriteFunction }
+            >
+              <img
+                src={ blackHeart }
+                alt="favorite icon"
+              />
+            </button>
+          </div>
+        );
       })}
     </div>
   );
