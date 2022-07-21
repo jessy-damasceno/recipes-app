@@ -16,6 +16,10 @@
   width: 100%;
 }
 
+.ingredient-checked {
+  text-decoration: line-through;
+}
+
 .start-recipe-btn {
   bottom: 0;
   cursor: pointer;

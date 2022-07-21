@@ -3,40 +3,49 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import clipboardCopy from 'clipboard-copy';
 import { fetchOneDrink } from '../services/fetchDrinks';
-import FoodRecommendations from './FoodRecommendations';
-import '../styles/DrinkDetails.css';
+import '../styles/FoodDetails.css';
 import {
   addFavoriteRecipe,
-  getDoneRecipes,
+  addRecipeInProgress,
   getFavoriteRecipes,
+  getRecipeInProgressByTypeAndId,
   removeFavoriteRecipe,
 } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 
-const DrinkDetails = ({ id }) => {
+const DrinkInProgress = ({ id }) => {
   const history = useHistory();
-  const isDone = getDoneRecipes().some(({ id: recipeId }) => recipeId === id);
   const [drink, setDrink] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
-  const [isInProgress] = useState(false);
   const [isFav, setIsFav] = useState(false);
+  const [isChecked, setIsChecked] = useState({});
+  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
       const response = await fetchOneDrink(id);
       setDrink(response);
     };
-    fetch();
-  }, [id]);
 
-  useEffect(() => {
     const isFavorite = () => {
       const favoritesList = getFavoriteRecipes();
       setIsFav(favoritesList.some((e) => e.id === id));
     };
+
+    const initialCheck = () => {
+      const response = getRecipeInProgressByTypeAndId('cocktails', id) || [];
+      response.forEach((e) => setIsChecked((oldState) => ({ ...oldState, [e]: true })));
+    };
+
+    fetch();
     isFavorite();
+    initialCheck();
+
+    return () => {
+      setIsChecked({});
+    };
   }, [id]);
 
   const ingredientsList = Object.entries(drink).reduce((acc, [key, value]) => {
@@ -54,12 +63,22 @@ const DrinkDetails = ({ id }) => {
   }, []);
 
   const handleClick = () => {
-    history.push(`${id}/in-progress`);
+    history.push('/done-recipes');
+  };
+
+  const handleChange = ({ target: { name, checked } }) => {
+    const newIsChecked = { ...isChecked, [name]: checked };
+    const keyValues = Object.values(newIsChecked);
+    addRecipeInProgress('cocktails', id, Object.entries(newIsChecked)
+      .filter((entry) => entry[1] === true).map(([key]) => key));
+    setIsChecked(newIsChecked);
+    setIsDisabled(keyValues.every((e) => e === true)
+      && (keyValues.length === ingredientsList.length));
   };
 
   const shareFunction = () => {
     setIsClicked(true);
-    clipboardCopy(window.location.href);
+    clipboardCopy(window.location.href.replace('/in-progress', ''));
     setTimeout(() => {
       setIsClicked(false);
     }, +'2000');
@@ -119,30 +138,39 @@ const DrinkDetails = ({ id }) => {
       <ul>
         {ingredientsList.map((e, i) => (
           <li
-            data-testid={ `${i}-ingredient-name-and-measure` }
+            data-testid={ `${i}-ingredient-step` }
             key={ i }
+            className={ isChecked[i + e] ? 'ingredient-checked' : 'recipe-ingredient' }
           >
-            {`${e} ${measuresList[i] ? `: ${measuresList[i]}` : ''}`}
+            <label htmlFor={ i + e }>
+              <input
+                type="checkbox"
+                name={ i + e }
+                id={ i + e }
+                onChange={ handleChange }
+                checked={ isChecked[i + e] ?? false }
+              />
+              {`${e}: ${measuresList[i]}`}
+            </label>
           </li>
         ))}
       </ul>
       <p data-testid="instructions">{drink.strInstructions}</p>
-      <FoodRecommendations />
-      {!isDone && (
-        <button
-          className="start-recipe-btn"
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ handleClick }
-        >
-          {isInProgress ? 'Continue Recipe' : 'Start Recipe'}
-        </button>)}
+      <button
+        className="start-recipe-btn"
+        type="button"
+        disabled={ !isDisabled }
+        data-testid="finish-recipe-btn"
+        onClick={ handleClick }
+      >
+        Finish Recipe
+      </button>
     </div>
   );
 };
 
-DrinkDetails.propTypes = {
+DrinkInProgress.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-export default DrinkDetails;
+export default DrinkInProgress;
