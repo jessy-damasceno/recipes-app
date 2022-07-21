@@ -1,8 +1,10 @@
 import React from 'react';
 // import PropTypes from 'prop-types'; /
+import { Link } from 'react-router-dom';
 import { getFavoriteRecipes } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
+import '../styles/FavoriteRecipes.css';
 // import whiteHeart from '../images/whiteHeartIcon.svg';
 
 const FavoriteDrinksRecipes = () => {
@@ -30,12 +32,13 @@ const FavoriteDrinksRecipes = () => {
         </button>
       </div>
       {favoriteAll.map((
-        { alcoholicOrNot, name, image, nationality, category, type }, i,
+        { alcoholicOrNot, name, image, nationality, category, type, id }, i,
       ) => {
         console.log(type);
         if (type === 'drink') {
           return (
             <div
+              className="favorite-recipes-container"
               key={ i }
             >
               <p
@@ -43,16 +46,19 @@ const FavoriteDrinksRecipes = () => {
               >
                 { alcoholicOrNot }
               </p>
-              <img
-                src={ image }
-                data-testid={ `${i}-horizontal-image` }
-                alt=""
-              />
-              <h1
-                data-testid={ `${i}-horizontal-name` }
-              >
-                { name }
-              </h1>
+              <Link to={ `/drinks/${id}` }>
+                <img
+                  src={ image }
+                  data-testid={ `${i}-horizontal-image` }
+                  className="favorite-recipe-image"
+                  alt=""
+                />
+                <h1
+                  data-testid={ `${i}-horizontal-name` }
+                >
+                  { name }
+                </h1>
+              </Link>
               <button
                 type="button"
                 // onClick={}
@@ -77,7 +83,10 @@ const FavoriteDrinksRecipes = () => {
           );
         }
         return (
-          <div key={ i }>
+          <div
+            className="favorite-recipes-container"
+            key={ i }
+          >
             <p
               data-testid={ `${i}-horizontal-top-text` }
             >
@@ -85,16 +94,19 @@ const FavoriteDrinksRecipes = () => {
               {' - '}
               { category }
             </p>
-            <img
-              src={ image }
-              data-testid={ `${i}-horizontal-image` }
-              alt=""
-            />
-            <h1
-              data-testid={ `${i}-horizontal-name` }
-            >
-              {name}
-            </h1>
+            <Link to={ `/foods/${id}` }>
+              <img
+                src={ image }
+                data-testid={ `${i}-horizontal-image` }
+                className="favorite-recipe-image"
+                alt=""
+              />
+              <h1
+                data-testid={ `${i}-horizontal-name` }
+              >
+                {name}
+              </h1>
+            </Link>
             <button
               type="button"
               // onClick={}
