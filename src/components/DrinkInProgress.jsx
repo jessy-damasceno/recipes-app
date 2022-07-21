@@ -19,6 +19,7 @@ const DrinkInProgress = ({ id }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [isFav, setIsFav] = useState(false);
   const [isChecked, setIsChecked] = useState({});
+  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
@@ -55,10 +56,11 @@ const DrinkInProgress = ({ id }) => {
   };
 
   const handleChange = ({ target: { name, checked } }) => {
-    setIsChecked({
-      ...isChecked,
-      [name]: checked,
-    });
+    const newIsChecked = { ...isChecked, [name]: checked };
+    const keyValues = Object.values(newIsChecked);
+    setIsChecked(newIsChecked);
+    setIsDisabled(keyValues.every((e) => e === true)
+      && (keyValues.length === ingredientsList.length));
   };
 
   const shareFunction = () => {
@@ -143,6 +145,7 @@ const DrinkInProgress = ({ id }) => {
       <button
         className="start-recipe-btn"
         type="button"
+        disabled={ !isDisabled }
         data-testid="finish-recipe-btn"
         onClick={ handleClick }
       >
