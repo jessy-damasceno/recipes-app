@@ -61,6 +61,7 @@ const FavoriteRecipes = () => {
           Drinks
         </button>
       </div>
+      {isClicked && <span className="copied_span">Link copied!</span>}
       {Boolean(favorites?.length) && favorites.map((e, index) => (
         <div
           className="favorite-recipes-container"
@@ -106,7 +107,6 @@ const FavoriteRecipes = () => {
               alt="favorite icon"
             />
           </button>
-          {isClicked && <span className="copied_span">Link copied!</span>}
         </div>
       ))}
     </div>
