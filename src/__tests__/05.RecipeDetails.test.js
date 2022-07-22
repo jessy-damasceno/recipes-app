@@ -9,6 +9,8 @@ import fetch from '../../cypress/mocks/fetch';
 
 const WHITE_HEART = 'http://localhost/whiteHeartIcon.svg';
 const BLACK_HEART = 'http://localhost/blackHeartIcon.svg';
+const START_BTN = 'start-recipe-btn';
+const ARRABIATA_ROUTE = '/drinks/178319';
 
 describe('Testando a página RecipeDetails', () => {
   beforeEach(() => {
@@ -34,7 +36,7 @@ describe('Testando a página RecipeDetails', () => {
     const spicy = await screen.findByRole('heading', { name: /spicy arrabiata penne/i });
     const shareIcon = screen.getByRole('img', { name: /share icon/i });
     const favIcon = screen.getByRole('img', { name: /favorite icon/i });
-    const start = screen.getByTestId('start-recipe-btn');
+    const start = screen.getByTestId(START_BTN);
     const ingredients = screen.getAllByTestId(/-ingredient-name-and-measure/);
 
     [spicy, shareIcon, favIcon, start].forEach((e) => expect(e).toBeInTheDocument());
@@ -82,12 +84,12 @@ describe('Testando a página RecipeDetails', () => {
       </FoodProvider>,
     );
 
-    history.push('/drinks/178319');
+    history.push(ARRABIATA_ROUTE);
 
     const aquamarine = await screen.findByRole('heading', { name: /aquamarine/i });
     const shareIcon = screen.getByRole('img', { name: /share icon/i });
     const favIcon = screen.getByRole('img', { name: /favorite icon/i });
-    const start = screen.getByTestId('start-recipe-btn');
+    const start = screen.getByTestId(START_BTN);
     const ingredients = screen.getAllByTestId(/-ingredient-name-and-measure/);
 
     [aquamarine, shareIcon, favIcon, start].forEach((e) => expect(e).toBeInTheDocument());
@@ -148,14 +150,14 @@ describe('Testando a página RecipeDetails', () => {
 
     console.log(localStorage.getItem('inProgressRecipes'));
 
-    history.push('/drinks/178319');
+    history.push(ARRABIATA_ROUTE);
 
     await waitFor(() => expect(screen
-      .getByTestId('start-recipe-btn')).toHaveTextContent('Continue Recipe'));
+      .getByTestId(START_BTN)).toHaveTextContent('Continue Recipe'));
 
-    history.push('/drinks/178319');
+    history.push('/foods/52771');
 
     await waitFor(() => expect(screen
-      .getByTestId('start-recipe-btn')).toHaveTextContent('Continue Recipe'));
+      .getByTestId(START_BTN)).toHaveTextContent('Continue Recipe'));
   });
 });
