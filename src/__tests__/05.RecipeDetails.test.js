@@ -125,7 +125,37 @@ describe('Testando a página RecipeDetails', () => {
     userEvent.click(start);
 
     expect(history.location.pathname).toBe('/drinks/178319/in-progress');
+  });
 
-    waitFor(() => userEvent.click(screen.getByTestId('0-ingredient-step')));
+  it('Teste drink e food em progresso', async () => {
+    jest.spyOn(Object.getPrototypeOf(localStorage), 'setItem');
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      cocktails: {
+        178319: ['0Hpnotiq', '1Pineapple Juice', '2Banana Liqueur'],
+      },
+      meals: {
+        52771: ['0penne rigate'],
+      },
+    }));
+
+    const { history } = renderWithRouter(
+      <FoodProvider>
+        <DrinkProvider>
+          <App />
+        </DrinkProvider>
+      </FoodProvider>,
+    );
+
+    console.log(localStorage.getItem('inProgressRecipes'));
+
+    history.push('/drinks/178319');
+
+    await waitFor(() => expect(screen
+      .getByTestId('start-recipe-btn')).toHaveTextContent('Continue Recipe'));
+
+    history.push('/drinks/178319');
+
+    await waitFor(() => expect(screen
+      .getByTestId('start-recipe-btn')).toHaveTextContent('Continue Recipe'));
   });
 });
