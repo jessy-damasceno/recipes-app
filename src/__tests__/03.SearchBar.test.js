@@ -6,10 +6,6 @@ import DrinkProvider from '../context/DrinkProvider';
 import FoodProvider from '../context/FoodProvider';
 import renderWithRouter from '../helpers/renderWithRouter';
 import App from '../App';
-// import meals from '../mocks/meals';
-// import drinks from '../mocks/drinks';
-// import oneMeal from '../mocks/oneMeal';
-// import oneDrink from '../mocks/oneDrink';
 import fetch from '../../cypress/mocks/fetch';
 
 const SEARCH_INPUT = 'search-input';
