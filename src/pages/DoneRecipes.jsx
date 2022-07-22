@@ -55,8 +55,9 @@ function DoneRecipes() {
             Drinks
           </button>
         </div>
+        {isClicked && <span>Link copied!</span>}
         <div>
-          {recipes?.length && recipes.map((e, index) => (
+          {Boolean(recipes?.length) && recipes.map((e, index) => (
             <div key={ e.id }>
               <Link to={ `/${e.type}s/${e.id}` }>
                 <img
@@ -99,7 +100,6 @@ function DoneRecipes() {
                   data-testid={ `${index}-horizontal-share-btn` }
                 />
               </button>
-              {isClicked && <span>Link copied!</span>}
             </div>
           ))}
         </div>
