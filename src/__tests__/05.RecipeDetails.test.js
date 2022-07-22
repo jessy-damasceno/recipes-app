@@ -9,6 +9,8 @@ import fetch from '../../cypress/mocks/fetch';
 
 const WHITE_HEART = 'http://localhost/whiteHeartIcon.svg';
 const BLACK_HEART = 'http://localhost/blackHeartIcon.svg';
+const START_BTN = 'start-recipe-btn';
+const ARRABIATA_ROUTE = '/drinks/178319';
 
 describe('Testando a página RecipeDetails', () => {
   beforeEach(() => {
@@ -34,7 +36,7 @@ describe('Testando a página RecipeDetails', () => {
     const spicy = await screen.findByRole('heading', { name: /spicy arrabiata penne/i });
     const shareIcon = screen.getByRole('img', { name: /share icon/i });
     const favIcon = screen.getByRole('img', { name: /favorite icon/i });
-    const start = screen.getByTestId('start-recipe-btn');
+    const start = screen.getByTestId(START_BTN);
     const ingredients = screen.getAllByTestId(/-ingredient-name-and-measure/);
 
     [spicy, shareIcon, favIcon, start].forEach((e) => expect(e).toBeInTheDocument());
@@ -82,12 +84,12 @@ describe('Testando a página RecipeDetails', () => {
       </FoodProvider>,
     );
 
-    history.push('/drinks/178319');
+    history.push(ARRABIATA_ROUTE);
 
     const aquamarine = await screen.findByRole('heading', { name: /aquamarine/i });
     const shareIcon = screen.getByRole('img', { name: /share icon/i });
     const favIcon = screen.getByRole('img', { name: /favorite icon/i });
-    const start = screen.getByTestId('start-recipe-btn');
+    const start = screen.getByTestId(START_BTN);
     const ingredients = screen.getAllByTestId(/-ingredient-name-and-measure/);
 
     [aquamarine, shareIcon, favIcon, start].forEach((e) => expect(e).toBeInTheDocument());
@@ -125,7 +127,37 @@ describe('Testando a página RecipeDetails', () => {
     userEvent.click(start);
 
     expect(history.location.pathname).toBe('/drinks/178319/in-progress');
+  });
 
-    waitFor(() => userEvent.click(screen.getByTestId('0-ingredient-step')));
+  it('Teste drink e food em progresso', async () => {
+    jest.spyOn(Object.getPrototypeOf(localStorage), 'setItem');
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      cocktails: {
+        178319: ['0Hpnotiq', '1Pineapple Juice', '2Banana Liqueur'],
+      },
+      meals: {
+        52771: ['0penne rigate'],
+      },
+    }));
+
+    const { history } = renderWithRouter(
+      <FoodProvider>
+        <DrinkProvider>
+          <App />
+        </DrinkProvider>
+      </FoodProvider>,
+    );
+
+    console.log(localStorage.getItem('inProgressRecipes'));
+
+    history.push(ARRABIATA_ROUTE);
+
+    await waitFor(() => expect(screen
+      .getByTestId(START_BTN)).toHaveTextContent('Continue Recipe'));
+
+    history.push('/foods/52771');
+
+    await waitFor(() => expect(screen
+      .getByTestId(START_BTN)).toHaveTextContent('Continue Recipe'));
   });
 });

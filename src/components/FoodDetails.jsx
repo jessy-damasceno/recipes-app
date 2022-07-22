@@ -35,7 +35,9 @@ const FoodDetails = ({ id }) => {
   useEffect(() => {
     const checkProgress = () => {
       const recipesInProgress = getRecipesInProgress();
-      if (recipesInProgress.meals[id]) setIsInProgress(true);
+      if (recipesInProgress.meals[id]) {
+        setIsInProgress(true);
+      }
     };
     checkProgress();
   }, [id]);
