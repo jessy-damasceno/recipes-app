@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import profileIcon from '../images/profileIcon.svg';
+// import profileIcon from '../images/profileIcon.svg';
+import logo from '../images/logo.png';
 import '../styles/Login.css';
 
 function Login() {
@@ -24,36 +25,40 @@ function Login() {
     <div className="main-container">
       <section className="login">
         <div className="avatar">
-          <img src={ profileIcon } alt="Profile Icon" />
+          <img src={ logo } alt="Profile Icon" className="app-logo" />
         </div>
-        <form className="login-inputs">
-          <input
-            type="email"
-            name="email"
-            id="email"
-            data-testid="email-input"
-            placeholder="Type your email"
-            value={ email }
-            onChange={ (e) => setEmail(e.target.value) }
-          />
-          <input
-            type="password"
-            name="password"
-            id="password"
-            data-testid="password-input"
-            placeholder="Type your password"
-            value={ password }
-            onChange={ (e) => setPassword(e.target.value) }
-          />
+        <form className="login-form">
+          <div>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              data-testid="email-input"
+              placeholder="type your e-mail"
+              autoComplete="off"
+              value={ email }
+              onChange={ (e) => setEmail(e.target.value) }
+            />
+            <input
+              type="password"
+              name="password"
+              id="password"
+              data-testid="password-input"
+              placeholder="type your password"
+              value={ password }
+              onChange={ (e) => setPassword(e.target.value) }
+            />
+          </div>
+          <button
+            type="button"
+            data-testid="login-submit-btn"
+            className="login-button"
+            disabled={ setLogin() }
+            onClick={ handleClick }
+          >
+            LOGIN
+          </button>
         </form>
-        <button
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ setLogin() }
-          onClick={ handleClick }
-        >
-          Enter
-        </button>
       </section>
     </div>
   );
