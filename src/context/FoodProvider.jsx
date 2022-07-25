@@ -7,6 +7,8 @@ function FoodProvider({ children }) {
   const [foodData, setFoodData] = useState([]);
   const [foods, setFoods] = useState([]);
   const [atualFoodCategory, setAtualFoodCategory] = useState('All');
+  const [actualFilter, setActualFilter] = useState('');
+  const [acCategory, setAcCategory] = useState('');
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -43,6 +45,10 @@ function FoodProvider({ children }) {
     // funcs
     setFoods,
     setFoodsByCategory,
+    actualFilter,
+    setActualFilter,
+    acCategory,
+    setAcCategory,
   };
 
   return (

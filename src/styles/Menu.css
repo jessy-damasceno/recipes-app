@@ -1,0 +1,60 @@
+.header-nav {
+  display: flex;
+  gap: 60px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header-nav-items {
+  align-items: center;
+  color: rgb(241, 241, 241);
+  display: flex;
+  gap: 6px;
+}
+
+.header-nav-items:hover {
+  color: #f4a234;
+}
+
+.menu-button {
+  background-color: transparent;
+  border: none;
+  color: #f4a234;
+  outline: none;
+}
+
+.meal-icon, .drink-icon {
+  margin-bottom: 4px;
+}
+
+@media screen and ( max-width : 1000px ) {
+
+  .header-nav {
+    backdrop-filter: blur(0.5rem);
+    background-color: hsl(0 0% 12% / 0.75);
+    flex-direction: column;
+    gap: 2em;
+    inset: 0 25% 0 0;
+    padding: min(30vh, 8rem) 2.5rem;
+    position: fixed;
+    transform: translateX(-100%);
+    transition: transform 0.4s ease-out;
+  }
+
+  .active {
+    transform: translateX(0%);
+  }
+
+  .header-nav-items {
+    font-size: 1.1em;
+  }
+
+  .menu-button {
+    display: block;
+    left: 1.5rem;
+    position: absolute;
+    top: 1.3rem;
+    z-index: 99;
+  }
+}

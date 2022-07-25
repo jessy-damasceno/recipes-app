@@ -21,18 +21,18 @@ const Recipes = ({ cocktails }) => {
                   className="card-div"
                 >
                   <Link to={ `/drinks/${idDrink}` }>
-                    <p
-                      data-testid={ `${index}-card-name` }
-                      className="food-name"
-                    >
-                      {strDrink}
-                    </p>
                     <img
                       src={ strDrinkThumb }
                       alt="Dish icon"
                       data-testid={ `${index}-card-img` }
                       className="food-image"
                     />
+                    <p
+                      data-testid={ `${index}-card-name` }
+                      className="food-name"
+                    >
+                      {strDrink}
+                    </p>
                   </Link>
                 </div>
               );
@@ -55,18 +55,18 @@ const Recipes = ({ cocktails }) => {
                   className="card-div"
                 >
                   <Link to={ `/foods/${idMeal}` }>
-                    <p
-                      data-testid={ `${index}-card-name` }
-                      className="food-name"
-                    >
-                      {strMeal}
-                    </p>
                     <img
                       src={ strMealThumb }
                       alt="Dish icon"
                       data-testid={ `${index}-card-img` }
                       className="food-image"
                     />
+                    <p
+                      data-testid={ `${index}-card-name` }
+                      className="food-name"
+                    >
+                      {strMeal}
+                    </p>
                   </Link>
                 </div>
               );

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { foodContext } from '../context/context';
 import { fetchFoodCategories } from '../services/fetchFoods';
+import '../styles/Categories.css';
 
 const FoodCategories = () => {
-  const { setFoodsByCategory } = useContext(foodContext);
+  const { setFoodsByCategory, acCategory, setAcCategory } = useContext(foodContext);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -17,6 +18,7 @@ const FoodCategories = () => {
 
   const handleClick = (arg) => {
     setFoodsByCategory(arg);
+    setAcCategory(arg);
   };
 
   return (
@@ -27,6 +29,7 @@ const FoodCategories = () => {
           type="button"
           onClick={ () => handleClick(e) }
           data-testid={ `${e}-category-filter` }
+          className={ acCategory === e ? 'category-button c-active' : 'category-button' }
         >
           {e}
         </button>

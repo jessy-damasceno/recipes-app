@@ -7,7 +7,7 @@ import '../styles/Foods.css';
 
 function Drinks() {
   return (
-    <div>
+    <div className="foods-page-container">
       <Header title="Drinks" search />
       <DrinkCategories />
       <Recipes cocktails />
