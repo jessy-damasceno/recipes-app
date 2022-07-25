@@ -27,12 +27,13 @@ const Recipes = ({ cocktails }) => {
                       data-testid={ `${index}-card-img` }
                       className="food-image"
                     />
-                    <p
-                      data-testid={ `${index}-card-name` }
-                      className="food-name"
-                    >
-                      {strDrink}
-                    </p>
+                    <div className="food-name">
+                      <p
+                        data-testid={ `${index}-card-name` }
+                      >
+                        {strDrink}
+                      </p>
+                    </div>
                   </Link>
                 </div>
               );

@@ -27,13 +27,13 @@ footer a:hover {
 
 .footer-mini-div {
   align-items: center;
-  background-color: #DEE8F2;
+  background-color: #dee8f2;
   border-radius: 50%;
-  color: #AF303C;
+  color: #af303c;
   cursor: pointer;
   display: flex;
-  justify-content: center;
   height: 3.5rem;
+  justify-content: center;
   margin-bottom: 1rem;
   width: 3.5rem;
 }

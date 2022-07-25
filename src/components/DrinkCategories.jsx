@@ -30,7 +30,7 @@ const DrinkCategories = () => {
           type="button"
           onClick={ () => handleClick(e) }
           data-testid={ `${e}-category-filter` }
-          className={ acCategory === e ? 'd-cat-button c-active' : 'd-cat-button' }
+          className={ acCategory === e ? 'category-button c-active' : 'category-button' }
         >
           {e.split('/')[0]}
         </button>
