@@ -1,0 +1,33 @@
+.header {
+  align-items: center;
+  background-color: #242424;
+  display: flex;
+  flex-direction: column;
+  min-height: 12vh;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+}
+
+.header-title {
+  color: #F4A234;
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.search-button {
+  background-color: transparent;
+  border: none;
+  color: #f4a234;
+  display: block;
+  position: absolute;
+  top: 1.6rem;
+  right: 1.5rem;
+  outline: none;
+}
+
+.margin-fix {
+  margin-top: 2.2vh;
+}

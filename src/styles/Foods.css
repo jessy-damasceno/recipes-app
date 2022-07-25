@@ -1,17 +1,43 @@
+.foods-page-container {
+  align-items: center;
+  background-color: #121212;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .food-section {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  padding: 0 1.2rem;
+  gap: 1.5rem;
+  width: 100%;
+  margin-bottom: 4vh;
 }
 
 .card-div {
-  max-width: 100px;
+  background-color: #D9D9D9;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  max-width: 8rem;
+  padding-bottom: 2px;
 }
 
 .food-name {
+  align-items: center;
+  color: #AF303C;
+  display: flex;
   font-size: 0.9em;
+  font-weight: 500;
+  justify-content: center;
+  padding: 4px;
+  padding-top: 0;
+  text-align: center;
+  word-wrap: break-word;
 }
 
 .food-image {
-  width: 50px;
+  border-radius: 8px 8px 0 0;
 }

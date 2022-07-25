@@ -1,25 +1,27 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import { BsSearch } from 'react-icons/bs';
 import PropTypes from 'prop-types';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import Menu from './Menu';
+import '../styles/Header.css';
 
 function Header({ title, search }) {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
-    <header>
-      <Link to="/profile">
-        <img
+    <header className="header">
+      <div>
+        {/* <img
           src={ profileIcon }
           data-testid="profile-top-btn"
           alt="Profile icon"
-        />
-      </Link>
+        /> */}
+        <Menu />
+      </div>
       <div>
         <h1
-          className="title"
+          className={ isVisible ? 'header-title margin-fix' : 'header-title' }
           data-testid="page-title"
         >
           {title}
@@ -27,20 +29,23 @@ function Header({ title, search }) {
       </div>
       {search && (
         <div>
-          {isVisible && <SearchBar />}
           <button
             type="button"
+            data-testid="search-top-btn"
+            className="search-button"
             onClick={ () => setIsVisible(!isVisible) }
           >
-            <img
+            {/* <img
               type="image"
               src={ searchIcon }
               data-testid="search-top-btn"
               alt="Search"
-            />
+            /> */}
+            <BsSearch size={ 26 } />
           </button>
         </div>
       )}
+      {isVisible && <SearchBar />}
     </header>
   );
 }

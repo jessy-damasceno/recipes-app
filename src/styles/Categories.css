@@ -1,0 +1,40 @@
+.filter-buttons-container {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16vh;
+  margin-bottom: 4vh;
+  padding: 0 1rem;
+  column-gap: 15px;
+  width: 100%;
+}
+
+.category-button {
+  background-color: #D9D9D9;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  outline: none;
+  padding: 3px;
+  text-transform: lowercase;
+  width: 5rem;
+}
+
+.d-cat-button {
+  background-color: #D9D9D9;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  outline: none;
+  padding: 3px;
+  text-transform: lowercase;
+  width: 6.5rem;
+  word-wrap: break-word;
+}
+
+.c-active {
+  background-color: #AF303C;
+  color: white;
+}

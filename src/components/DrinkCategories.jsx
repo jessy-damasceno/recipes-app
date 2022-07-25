@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { drinkContext } from '../context/context';
+import { drinkContext, foodContext } from '../context/context';
 import { fetchDrinkCategories } from '../services/fetchDrinks';
+import '../styles/Categories.css';
 
 const DrinkCategories = () => {
   const { setDrinksByCategory } = useContext(drinkContext);
+  const { acCategory, setAcCategory } = useContext(foodContext);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -17,9 +19,8 @@ const DrinkCategories = () => {
 
   const handleClick = (arg) => {
     setDrinksByCategory(arg);
+    setAcCategory(arg);
   };
-
-  console.log(categories);
 
   return (
     <div className="filter-buttons-container">
@@ -29,8 +30,9 @@ const DrinkCategories = () => {
           type="button"
           onClick={ () => handleClick(e) }
           data-testid={ `${e}-category-filter` }
+          className={ acCategory === e ? 'd-cat-button c-active' : 'd-cat-button' }
         >
-          {e}
+          {e.split('/')[0]}
         </button>
       ))}
     </div>
